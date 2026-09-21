@@ -1,0 +1,6 @@
+{
+  "name": "Meu Estudo",
+  "description": "Plataforma pessoal de organização, estudos, matérias, calendário e acompanhamento de aprendizagem.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

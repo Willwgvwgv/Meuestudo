@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  Palette, 
-  X, 
-  Check, 
-  RotateCcw, 
-  Sparkles, 
-  Sun, 
-  Moon, 
-  Coffee, 
-  Sliders, 
-  Eye, 
+import {
+  Palette,
+  X,
+  Check,
+  RotateCcw,
+  Sparkles,
+  Sun,
+  Moon,
+  Coffee,
+  Sliders,
+  Eye,
   Copy,
-  LayoutGrid
+  LayoutGrid,
 } from 'lucide-react';
 import { ThemeConfig } from '../types';
 import { THEME_PRESETS, DEFAULT_THEME } from '../utils/theme';
@@ -98,7 +98,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900">Tabela de Cores do Visual</h2>
-              <p className="text-xs text-slate-500">Configure temas visuais prontos ou personalize cada tom do aplicativo</p>
+              <p className="text-xs text-slate-500">
+                Configure temas visuais prontos ou personalize cada tom do aplicativo
+              </p>
             </div>
           </div>
           <button
@@ -143,7 +145,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {THEME_PRESETS.map((preset) => {
-                  const isSelected = currentTheme.id === preset.id || (preset.id === 'ocean-blue' && currentTheme.primary === preset.primary);
+                  const isSelected =
+                    currentTheme.id === preset.id ||
+                    (preset.id === 'ocean-blue' && currentTheme.primary === preset.primary);
                   return (
                     <div
                       key={preset.id}
@@ -158,8 +162,12 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
                           {preset.mode === 'dark' && <Moon className="w-3.5 h-3.5 text-blue-400" />}
-                          {preset.mode === 'sepia' && <Coffee className="w-3.5 h-3.5 text-amber-700" />}
-                          {preset.mode === 'light' && <Sun className="w-3.5 h-3.5 text-amber-500" />}
+                          {preset.mode === 'sepia' && (
+                            <Coffee className="w-3.5 h-3.5 text-amber-700" />
+                          )}
+                          {preset.mode === 'light' && (
+                            <Sun className="w-3.5 h-3.5 text-amber-500" />
+                          )}
                           {preset.name}
                         </span>
                         {isSelected && (
@@ -210,7 +218,8 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2">
                 <Sliders className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
                 <span>
-                  Ajuste fino de cada cor da tabela visual. Todas as mudanças refletem instantaneamente na tela para você testar.
+                  Ajuste fino de cada cor da tabela visual. Todas as mudanças refletem
+                  instantaneamente na tela para você testar.
                 </span>
               </div>
 
@@ -219,7 +228,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Primary */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Cor Primária (Principal)</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Cor Primária (Principal)
+                    </label>
                     <span className="text-[11px] text-slate-400">Botões, abas ativas e ícones</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -238,7 +249,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Accent */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Cor de Destaque (Accent)</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Cor de Destaque (Accent)
+                    </label>
                     <span className="text-[11px] text-slate-400">Tags, brilho e detalhes</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -257,7 +270,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Background */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Fundo da Aplicação</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Fundo da Aplicação
+                    </label>
                     <span className="text-[11px] text-slate-400">Área geral de fundo</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -276,7 +291,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Surface */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Superfície dos Cartões</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Superfície dos Cartões
+                    </label>
                     <span className="text-[11px] text-slate-400">Cartões de matéria, notas</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -295,7 +312,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Sidebar Background */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Menu Lateral (Sidebar)</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Menu Lateral (Sidebar)
+                    </label>
                     <span className="text-[11px] text-slate-400">Navegação e painéis</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -314,7 +333,9 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
                 {/* Text Main */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                   <div>
-                    <label className="text-xs font-bold text-slate-800 block">Texto Principal</label>
+                    <label className="text-xs font-bold text-slate-800 block">
+                      Texto Principal
+                    </label>
                     <span className="text-[11px] text-slate-400">Títulos e texto de leitura</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -334,8 +355,12 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
               {/* Mode Toggle */}
               <div className="p-3.5 bg-white rounded-2xl border border-slate-200 flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-bold text-slate-800 block">Modo Base do Contraste</span>
-                  <span className="text-[11px] text-slate-400">Adapta ícones e caixas de diálogo</span>
+                  <span className="text-xs font-bold text-slate-800 block">
+                    Modo Base do Contraste
+                  </span>
+                  <span className="text-[11px] text-slate-400">
+                    Adapta ícones e caixas de diálogo
+                  </span>
                 </div>
                 <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
                   <button
@@ -376,7 +401,7 @@ export const ThemeModal: React.FC<ThemeModalProps> = ({
               </button>
             </div>
 
-            <div 
+            <div
               style={{
                 backgroundColor: customTheme.surface,
                 borderColor: customTheme.borderColor,

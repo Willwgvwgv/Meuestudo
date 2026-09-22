@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import { 
-  GraduationCap, 
-  Mail, 
-  Lock, 
-  User as UserIcon, 
-  BookOpen, 
-  ArrowRight, 
-  AlertCircle, 
-  Key, 
+import {
+  GraduationCap,
+  Mail,
+  Lock,
+  User as UserIcon,
+  BookOpen,
+  ArrowRight,
+  AlertCircle,
+  Key,
   ExternalLink,
   ChevronDown,
   Sparkles,
   CheckCircle2,
-  HelpCircle
+  HelpCircle,
 } from 'lucide-react';
-import { 
-  signInWithEmail, 
-  signUpWithEmail, 
-  signInWithGoogle, 
+import {
+  signInWithEmail,
+  signUpWithEmail,
+  signInWithGoogle,
   isSupabaseConfigured,
   setManualSupabaseConfig,
-  getSupabaseConfig
+  getSupabaseConfig,
 } from '../utils/supabase';
 
 interface AuthViewProps {
@@ -39,7 +39,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [studyContext, setStudyContext] = useState('');
-  
+
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
@@ -60,7 +60,9 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
     setConfigSaved(true);
     setShowConfigDrawer(false);
     setErrorMessage(null);
-    setInfoMessage('Configuração do Supabase salva com sucesso! Agora você pode criar sua conta ou entrar.');
+    setInfoMessage(
+      'Configuração do Supabase salva com sucesso! Agora você pode criar sua conta ou entrar.',
+    );
   };
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
@@ -104,7 +106,9 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
           triggerSuccess();
         } else {
           // If email confirmation is required by Supabase project settings
-          setInfoMessage('Conta criada com sucesso! Se o e-mail exigir confirmação, verifique sua caixa de entrada, ou faça login com suas credenciais.');
+          setInfoMessage(
+            'Conta criada com sucesso! Se o e-mail exigir confirmação, verifique sua caixa de entrada, ou faça login com suas credenciais.',
+          );
           setMode('login');
         }
       }
@@ -184,7 +188,10 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
           {isSupabaseConfigured() ? (
             <span className="w-2 h-2 rounded-full bg-emerald-500 ml-1" title="Configurado" />
           ) : (
-            <span className="w-2 h-2 rounded-full bg-amber-500 ml-1 animate-pulse" title="Pendente de chaves" />
+            <span
+              className="w-2 h-2 rounded-full bg-amber-500 ml-1 animate-pulse"
+              title="Pendente de chaves"
+            />
           )}
         </button>
       </header>
@@ -192,18 +199,17 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
       {/* Main Content Area */}
       <main className="w-full flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12">
         <div className="w-full max-w-md flex flex-col gap-6">
-          
           {/* Quick Setup Drawer if Supabase keys not set */}
           {showConfigDrawer && (
             <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-3">
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-amber-900">
-                    Credenciais do Supabase
-                  </h3>
+                  <h3 className="text-sm font-bold text-amber-900">Credenciais do Supabase</h3>
                   <p className="text-xs text-amber-800 mt-1 leading-relaxed">
-                    Você pode colar sua <strong>Project URL</strong> e <strong>anon key</strong> abaixo para conectar imediatamente ou adicioná-las aos <strong>Secrets</strong> do AI Studio (<code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code>).
+                    Você pode colar sua <strong>Project URL</strong> e <strong>anon key</strong>{' '}
+                    abaixo para conectar imediatamente ou adicioná-las aos <strong>Secrets</strong>{' '}
+                    do AI Studio (<code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code>).
                   </p>
                 </div>
               </div>
@@ -252,12 +258,14 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
 
           {/* Main Auth Card */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-7 sm:p-8 flex flex-col gap-6">
-            
             {/* Tab switch: Login / Register */}
             <div className="flex bg-slate-100 p-1 rounded-2xl">
               <button
                 type="button"
-                onClick={() => { setMode('login'); setErrorMessage(null); }}
+                onClick={() => {
+                  setMode('login');
+                  setErrorMessage(null);
+                }}
                 className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   mode === 'login'
                     ? 'bg-white text-[#191c1e] shadow-xs'
@@ -268,7 +276,10 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
               </button>
               <button
                 type="button"
-                onClick={() => { setMode('register'); setErrorMessage(null); }}
+                onClick={() => {
+                  setMode('register');
+                  setErrorMessage(null);
+                }}
                 className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   mode === 'register'
                     ? 'bg-white text-[#191c1e] shadow-xs'
@@ -413,13 +424,15 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-slate-700">
-                    Senha
-                  </label>
+                  <label className="text-xs font-bold text-slate-700">Senha</label>
                   {mode === 'login' && (
                     <button
                       type="button"
-                      onClick={() => setInfoMessage('Para redefinir sua senha, solicite o link através do painel de Auth do Supabase ou cadastre um novo usuário.')}
+                      onClick={() =>
+                        setInfoMessage(
+                          'Para redefinir sua senha, solicite o link através do painel de Auth do Supabase ou cadastre um novo usuário.',
+                        )
+                      }
                       className="text-[11px] text-[#004ac6] hover:underline font-semibold cursor-pointer"
                     >
                       Esqueceu a senha?
@@ -482,7 +495,6 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             <span>Banco protegido por Row Level Security (RLS) no Supabase</span>
           </div>
-
         </div>
       </main>
 

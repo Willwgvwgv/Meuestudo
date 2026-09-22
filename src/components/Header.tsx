@@ -29,11 +29,10 @@ export const Header: React.FC<HeaderProps> = ({
   streakDays,
   onSignOut,
 }) => {
-
   const [showNotifPopover, setShowNotifPopover] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -83,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Right: Quick actions, Streak, Notifications, Settings */}
       <div className="flex items-center gap-2 sm:gap-4">
         {/* Streak badge */}
-        <div 
+        <div
           onClick={() => onNavigate('evolucao')}
           className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-700 hover:bg-amber-500/20 text-xs font-semibold cursor-pointer transition-colors border border-amber-500/20"
           title={`Sequência de foco ativa: ${streakDays} dias!`}
@@ -117,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {showNotifPopover && (
-            <div 
+            <div
               id="notifications-dropdown"
               className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-[#c3c6d7]/40 p-4 z-50 animate-in fade-in zoom-in-95 duration-150"
             >
@@ -158,7 +157,7 @@ export const Header: React.FC<HeaderProps> = ({
                         <span className="text-[10px] text-[#737686] shrink-0">{notif.time}</span>
                       </div>
                       <p className="text-xs text-[#434655] mt-1 leading-relaxed">{notif.message}</p>
-                      
+
                       <div className="mt-2.5 flex items-center justify-between">
                         {notif.actionTab && (
                           <button

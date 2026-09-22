@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  Sparkles, 
-  BookOpen, 
-  HelpCircle, 
-  CheckCircle2, 
-  AlertCircle, 
+import {
+  X,
+  Sparkles,
+  BookOpen,
+  HelpCircle,
+  CheckCircle2,
+  AlertCircle,
   Loader2,
   Sliders,
-  Layers
+  Layers,
 } from 'lucide-react';
 import { Subject, Question } from '../types';
 
@@ -25,7 +25,9 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
   subjects,
   onQuestionsGenerated,
 }) => {
-  const [selectedSubject, setSelectedSubject] = useState<string>(() => subjects[0]?.name || '__custom__');
+  const [selectedSubject, setSelectedSubject] = useState<string>(
+    () => subjects[0]?.name || '__custom__',
+  );
   const [customSubject, setCustomSubject] = useState<string>('');
   const [topic, setTopic] = useState<string>('');
   const [difficulty, setDifficulty] = useState<'Fácil' | 'Médio' | 'Difícil'>('Médio');
@@ -35,7 +37,7 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
 
   if (!isOpen) return null;
 
-  const currentSubjectObj = subjects.find(s => s.name === selectedSubject);
+  const currentSubjectObj = subjects.find((s) => s.name === selectedSubject);
   const availableTopics = currentSubjectObj?.topics || [];
 
   const handleGenerate = async (e: React.FormEvent) => {
@@ -114,9 +116,7 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-extrabold text-[#191c1e]">
-                Gerar Questões com IA
-              </h2>
+              <h2 className="text-lg font-extrabold text-[#191c1e]">Gerar Questões com IA</h2>
               <p className="text-xs text-slate-500">
                 Criadas via Gemini para qualquer área, curso ou concurso
               </p>
@@ -210,9 +210,7 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
           {/* Difficulty & Count */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1.5">
-                Dificuldade
-              </label>
+              <label className="text-xs font-bold text-slate-700 block mb-1.5">Dificuldade</label>
               <div className="flex bg-slate-100 p-1 rounded-xl">
                 {(['Fácil', 'Médio', 'Difícil'] as const).map((lvl) => (
                   <button
@@ -233,9 +231,7 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-slate-700">
-                  Quantidade
-                </label>
+                <label className="text-xs font-bold text-slate-700">Quantidade</label>
                 <span className="text-xs font-bold text-[#004ac6]">{count} questões</span>
               </div>
               <input
@@ -258,7 +254,8 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-xs text-slate-500 flex items-start gap-2">
             <Sparkles className="w-4 h-4 text-[#004ac6] shrink-0 mt-0.5" />
             <span>
-              As questões geradas serão salvas automaticamente no seu banco de questões pessoal com gabarito e resolução detalhada.
+              As questões geradas serão salvas automaticamente no seu banco de questões pessoal com
+              gabarito e resolução detalhada.
             </span>
           </div>
 

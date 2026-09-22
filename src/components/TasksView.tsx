@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { 
-  Plus, 
-  Filter, 
-  Check, 
-  Clock, 
-  AlertTriangle, 
-  Flame, 
-  Sparkles, 
-  Calendar as CalendarIcon, 
-  Trash2, 
-  Edit3, 
-  CheckCircle2, 
+import {
+  Plus,
+  Filter,
+  Check,
+  Clock,
+  AlertTriangle,
+  Flame,
+  Sparkles,
+  Calendar as CalendarIcon,
+  Trash2,
+  Edit3,
+  CheckCircle2,
   X,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 import { Task, StudentProfile } from '../types';
 
@@ -36,29 +36,36 @@ export const TasksView: React.FC<TasksViewProps> = ({
   const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
 
   // Filter tasks
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = tasks.filter((task) => {
     if (filterSubject !== 'all' && task.subject !== filterSubject) return false;
     if (filterPriority !== 'all' && task.priority !== filterPriority) return false;
     return true;
   });
 
-  const pendingToday = filteredTasks.filter(t => !t.completed && (t.dueDate === 'Hoje' || t.dueDate.toLowerCase().includes('hoje')));
-  const upcomingTasks = filteredTasks.filter(t => !t.completed && t.dueDate !== 'Hoje' && !t.dueDate.toLowerCase().includes('hoje'));
-  const completedTasks = filteredTasks.filter(t => t.completed);
+  const pendingToday = filteredTasks.filter(
+    (t) => !t.completed && (t.dueDate === 'Hoje' || t.dueDate.toLowerCase().includes('hoje')),
+  );
+  const upcomingTasks = filteredTasks.filter(
+    (t) => !t.completed && t.dueDate !== 'Hoje' && !t.dueDate.toLowerCase().includes('hoje'),
+  );
+  const completedTasks = filteredTasks.filter((t) => t.completed);
 
-  const totalTodayTasks = tasks.filter(t => t.dueDate === 'Hoje' || t.dueDate.toLowerCase().includes('hoje') || t.completed).length;
-  const completedTodayCount = tasks.filter(t => t.completed).length;
-  const pendingCount = tasks.filter(t => !t.completed).length;
+  const totalTodayTasks = tasks.filter(
+    (t) => t.dueDate === 'Hoje' || t.dueDate.toLowerCase().includes('hoje') || t.completed,
+  ).length;
+  const completedTodayCount = tasks.filter((t) => t.completed).length;
+  const pendingCount = tasks.filter((t) => !t.completed).length;
 
-  const completionPercent = totalTodayTasks > 0 
-    ? Math.round((completedTodayCount / (completedTodayCount + pendingCount)) * 100)
-    : 0;
+  const completionPercent =
+    totalTodayTasks > 0
+      ? Math.round((completedTodayCount / (completedTodayCount + pendingCount)) * 100)
+      : 0;
 
   // SVG donut calculation (radius = 40, circumference = 251.2)
   const circumference = 251.2;
   const strokeDashoffset = circumference - (circumference * completionPercent) / 100;
 
-  const subjectsList = Array.from(new Set(tasks.map(t => t.subject)));
+  const subjectsList = Array.from(new Set(tasks.map((t) => t.subject)));
 
   return (
     <div className="w-full max-w-6xl mx-auto py-8 md:py-12 flex flex-col gap-10">
@@ -71,9 +78,11 @@ export const TasksView: React.FC<TasksViewProps> = ({
           <p className="text-base md:text-lg text-[#434655] max-w-2xl leading-relaxed">
             Concentre-se no que é importante hoje. Você tem{' '}
             <span className="font-semibold text-[#004ac6] bg-[#dbe1ff] px-2.5 py-0.5 rounded-md text-sm inline-block">
-              {pendingCount} tarefa{pendingCount !== 1 ? 's' : ''} pendente{pendingCount !== 1 ? 's' : ''}
+              {pendingCount} tarefa{pendingCount !== 1 ? 's' : ''} pendente
+              {pendingCount !== 1 ? 's' : ''}
             </span>{' '}
-            e já concluiu <span className="font-semibold text-emerald-700">{completedTodayCount}</span>.
+            e já concluiu{' '}
+            <span className="font-semibold text-emerald-700">{completedTodayCount}</span>.
           </p>
         </div>
 
@@ -97,13 +106,13 @@ export const TasksView: React.FC<TasksViewProps> = ({
 
           {/* Filter Dropdown Popover */}
           {showFilterMenu && (
-            <div 
+            <div
               id="filter-tasks-dropdown"
               className="absolute right-0 top-14 w-64 bg-white rounded-2xl shadow-xl border border-[#c3c6d7]/40 p-4 z-40 animate-in fade-in zoom-in-95 duration-150"
             >
               <div className="flex items-center justify-between pb-2 border-b border-[#eceef0]">
                 <span className="text-xs font-bold text-[#191c1e] uppercase">Filtrar Tarefas</span>
-                <button 
+                <button
                   onClick={() => setShowFilterMenu(false)}
                   className="text-xs text-[#737686] hover:text-[#191c1e]"
                 >
@@ -122,8 +131,10 @@ export const TasksView: React.FC<TasksViewProps> = ({
                   className="w-full bg-[#f2f4f6] text-xs font-medium text-[#191c1e] p-2 rounded-lg border border-transparent focus:border-[#004ac6] outline-hidden"
                 >
                   <option value="all">Todas as Matérias</option>
-                  {subjectsList.map(s => (
-                    <option key={s} value={s}>{s}</option>
+                  {subjectsList.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -177,9 +188,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           {/* Section: Para Hoje */}
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <h2 className="text-xl font-bold text-[#191c1e]">
-                Para Hoje
-              </h2>
+              <h2 className="text-xl font-bold text-[#191c1e]">Para Hoje</h2>
               <span className="w-6 h-6 rounded-full bg-[#ffdad6] text-[#93000a] flex items-center justify-center text-xs font-bold shadow-xs">
                 {pendingToday.length}
               </span>
@@ -201,14 +210,10 @@ export const TasksView: React.FC<TasksViewProps> = ({
                       className="group flex items-start gap-4 p-5 rounded-2xl bg-white hover:bg-[#f7f9fb] transition-all shadow-xs hover:shadow-md relative overflow-hidden border border-[#c3c6d7]/30"
                     >
                       {/* Left color bar indicator */}
-                      <div 
+                      <div
                         className={`absolute left-0 top-0 bottom-0 w-1.5 ${
-                          isUrgent 
-                            ? 'bg-[#ba1a1a]' 
-                            : isHigh 
-                            ? 'bg-[#2563eb]' 
-                            : 'bg-[#505f76]'
-                        }`} 
+                          isUrgent ? 'bg-[#ba1a1a]' : isHigh ? 'bg-[#2563eb]' : 'bg-[#505f76]'
+                        }`}
                       />
 
                       {/* Checkbox button */}
@@ -277,9 +282,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           {upcomingTasks.length > 0 && (
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-xl font-bold text-[#191c1e]">
-                  Próximos Dias
-                </h2>
+                <h2 className="text-xl font-bold text-[#191c1e]">Próximos Dias</h2>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#eceef0] text-[#505f76]">
                   {upcomingTasks.length}
                 </span>
@@ -343,9 +346,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           {completedTasks.length > 0 && (
             <section className="opacity-80">
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-lg font-bold text-[#737686]">
-                  Concluídas Hoje
-                </h2>
+                <h2 className="text-lg font-bold text-[#737686]">Concluídas Hoje</h2>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
                   {completedTasks.length}
                 </span>
@@ -373,9 +374,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
                         <span className="px-2 py-0.5 bg-[#eceef0] rounded-md font-medium">
                           {task.subject}
                         </span>
-                        {task.completedAt && (
-                          <span>Concluído {task.completedAt}</span>
-                        )}
+                        {task.completedAt && <span>Concluído {task.completedAt}</span>}
                       </div>
                     </div>
 
@@ -395,15 +394,13 @@ export const TasksView: React.FC<TasksViewProps> = ({
         {/* Right Area: Daily Progress + Focus Streak Chart */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           {/* Card: Progresso Diário */}
-          <div 
+          <div
             id="daily-progress-card"
             className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 relative overflow-hidden"
           >
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#004ac6]/5 rounded-full blur-2xl pointer-events-none" />
 
-            <h3 className="text-xl font-bold text-[#191c1e] mb-6">
-              Progresso Diário
-            </h3>
+            <h3 className="text-xl font-bold text-[#191c1e] mb-6">Progresso Diário</h3>
 
             {/* Circular Donut Gauge */}
             <div className="flex justify-center mb-6 relative">
@@ -450,9 +447,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
               </div>
 
               <div className="p-3.5 bg-[#eceef0] rounded-2xl">
-                <span className="block text-2xl font-extrabold text-[#004ac6]">
-                  {pendingCount}
-                </span>
+                <span className="block text-2xl font-extrabold text-[#004ac6]">{pendingCount}</span>
                 <span className="block text-[11px] font-bold text-[#505f76] uppercase tracking-wider mt-1">
                   Restante{pendingCount !== 1 ? 's' : ''}
                 </span>
@@ -461,7 +456,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           </div>
 
           {/* Card: Sequência de Foco */}
-          <div 
+          <div
             id="focus-streak-card"
             className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30"
           >
@@ -477,21 +472,23 @@ export const TasksView: React.FC<TasksViewProps> = ({
               {profile.weeklyFocusHistory.map((dayItem, idx) => (
                 <div key={idx} className="flex-1 flex flex-col items-center gap-2 group h-full">
                   <div className="w-full bg-[#eceef0] rounded-t-lg relative flex-1 overflow-hidden">
-                    <div 
+                    <div
                       className={`absolute bottom-0 w-full rounded-t-lg transition-all duration-700 ${
-                        dayItem.isToday 
-                          ? 'bg-[#004ac6] group-hover:bg-[#2563eb]' 
-                          : dayItem.heightPercent > 0 
-                          ? 'bg-[#2563eb]/60 group-hover:bg-[#2563eb]/80' 
-                          : 'bg-transparent'
+                        dayItem.isToday
+                          ? 'bg-[#004ac6] group-hover:bg-[#2563eb]'
+                          : dayItem.heightPercent > 0
+                            ? 'bg-[#2563eb]/60 group-hover:bg-[#2563eb]/80'
+                            : 'bg-transparent'
                       }`}
                       style={{ height: `${dayItem.heightPercent}%` }}
                       title={`${dayItem.fullDay}: ${dayItem.heightPercent}% da meta`}
                     />
                   </div>
-                  <span className={`text-xs font-bold ${
-                    dayItem.isToday ? 'text-[#004ac6]' : 'text-[#737686]'
-                  }`}>
+                  <span
+                    className={`text-xs font-bold ${
+                      dayItem.isToday ? 'text-[#004ac6]' : 'text-[#737686]'
+                    }`}
+                  >
                     {dayItem.day}
                   </span>
                 </div>
@@ -499,7 +496,9 @@ export const TasksView: React.FC<TasksViewProps> = ({
             </div>
 
             <p className="text-sm text-[#434655] text-center leading-relaxed">
-              Você está em uma sequência de <strong className="text-[#191c1e] font-bold">{profile.streakDays} dias</strong>. Mantenha o ritmo!
+              Você está em uma sequência de{' '}
+              <strong className="text-[#191c1e] font-bold">{profile.streakDays} dias</strong>.
+              Mantenha o ritmo!
             </p>
           </div>
         </div>

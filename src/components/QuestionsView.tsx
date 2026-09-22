@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  CheckCircle2, 
-  XCircle, 
-  HelpCircle, 
-  RotateCcw, 
-  Sparkles, 
-  ArrowRight, 
-  Filter, 
-  BookOpen, 
-  Trophy, 
-  Clock, 
+import {
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  RotateCcw,
+  Sparkles,
+  ArrowRight,
+  Filter,
+  BookOpen,
+  Trophy,
+  Clock,
   Flame,
-  PlusCircle
+  PlusCircle,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Question, Subject } from '../types';
@@ -38,15 +38,19 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [showResults, setShowResults] = useState<boolean>(false);
-  const [historyAnswers, setHistoryAnswers] = useState<{ [qId: string]: { selected: number; isCorrect: boolean } }>({});
+  const [historyAnswers, setHistoryAnswers] = useState<{
+    [qId: string]: { selected: number; isCorrect: boolean };
+  }>({});
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState<boolean>(false);
 
-  const filteredQuestions = questions.filter(q => 
-    selectedSubject === 'all' ? true : q.subject === selectedSubject
+  const filteredQuestions = questions.filter((q) =>
+    selectedSubject === 'all' ? true : q.subject === selectedSubject,
   );
 
   const currentQ = filteredQuestions[currentIdx] || filteredQuestions[0];
-  const allSubjectNames = Array.from(new Set([...subjects.map(s => s.name), ...questions.map(q => q.subject)]));
+  const allSubjectNames = Array.from(
+    new Set([...subjects.map((s) => s.name), ...questions.map((q) => q.subject)]),
+  );
 
   const handleSelectOption = (index: number) => {
     if (isSubmitted) return;
@@ -57,9 +61,9 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
     if (selectedOption === null || isSubmitted || !currentQ) return;
     setIsSubmitted(true);
     const isCorrect = selectedOption === currentQ.correctAnswerIndex;
-    
+
     if (isCorrect) {
-      setScore(prev => prev + 1);
+      setScore((prev) => prev + 1);
       confetti({
         particleCount: 40,
         spread: 60,
@@ -67,7 +71,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
       });
     }
 
-    setHistoryAnswers(prev => ({
+    setHistoryAnswers((prev) => ({
       ...prev,
       [currentQ.id]: { selected: selectedOption, isCorrect },
     }));
@@ -79,13 +83,16 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
 
   const handleNext = () => {
     if (currentIdx < filteredQuestions.length - 1) {
-      setCurrentIdx(prev => prev + 1);
+      setCurrentIdx((prev) => prev + 1);
       setSelectedOption(null);
       setIsSubmitted(false);
     } else {
       setShowResults(true);
       if (onFinishSession) {
-        onFinishSession(score + (selectedOption === currentQ.correctAnswerIndex ? 1 : 0), filteredQuestions.length);
+        onFinishSession(
+          score + (selectedOption === currentQ.correctAnswerIndex ? 1 : 0),
+          filteredQuestions.length,
+        );
       }
       confetti({
         particleCount: 100,
@@ -157,8 +164,10 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
               className="bg-transparent text-sm font-semibold text-[#191c1e] py-1 px-2 outline-hidden cursor-pointer"
             >
               <option value="all">Todas as Matérias</option>
-              {allSubjectNames.map(s => (
-                <option key={s} value={s}>{s}</option>
+              {allSubjectNames.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
               ))}
             </select>
           </div>
@@ -173,27 +182,29 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
           </div>
 
           <div>
-            <h2 className="text-3xl font-extrabold text-[#191c1e]">
-              Sessão Concluída!
-            </h2>
+            <h2 className="text-3xl font-extrabold text-[#191c1e]">Sessão Concluída!</h2>
             <p className="text-base text-[#434655] mt-2">
-              Você acertou <strong className="text-[#004ac6] text-xl font-bold">{score}</strong> de <strong className="text-xl font-bold">{filteredQuestions.length}</strong> questões ({Math.round((score / filteredQuestions.length) * 100)}%).
+              Você acertou <strong className="text-[#004ac6] text-xl font-bold">{score}</strong> de{' '}
+              <strong className="text-xl font-bold">{filteredQuestions.length}</strong> questões (
+              {Math.round((score / filteredQuestions.length) * 100)}%).
             </p>
           </div>
 
           <div className="w-full max-w-md bg-[#f2f4f6] rounded-2xl p-4 flex justify-around">
             <div>
-              <span className="text-xs text-[#737686] uppercase font-bold block">Taxa de Acerto</span>
+              <span className="text-xs text-[#737686] uppercase font-bold block">
+                Taxa de Acerto
+              </span>
               <span className="text-2xl font-extrabold text-[#004ac6]">
                 {Math.round((score / filteredQuestions.length) * 100)}%
               </span>
             </div>
             <div className="w-px bg-[#c3c6d7]" />
             <div>
-              <span className="text-xs text-[#737686] uppercase font-bold block">Pontos Ganhos</span>
-              <span className="text-2xl font-extrabold text-amber-600">
-                +{score * 15} XP
+              <span className="text-xs text-[#737686] uppercase font-bold block">
+                Pontos Ganhos
               </span>
+              <span className="text-2xl font-extrabold text-amber-600">+{score * 15} XP</span>
             </div>
           </div>
 
@@ -226,7 +237,9 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
             </div>
 
             <div className="flex items-center gap-3 text-xs font-semibold text-[#737686]">
-              <span>Questão {currentIdx + 1} de {filteredQuestions.length}</span>
+              <span>
+                Questão {currentIdx + 1} de {filteredQuestions.length}
+              </span>
               <span className="px-2 py-0.5 bg-slate-100 rounded text-slate-700">
                 {currentQ.difficulty}
               </span>
@@ -245,16 +258,20 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
               const isCorrect = i === currentQ.correctAnswerIndex;
               const isWrongSelected = isSubmitted && isSelected && !isCorrect;
 
-              let optionStyle = "border-[#c3c6d7]/50 hover:border-[#004ac6] bg-white text-[#191c1e]";
+              let optionStyle =
+                'border-[#c3c6d7]/50 hover:border-[#004ac6] bg-white text-[#191c1e]';
               if (isSelected && !isSubmitted) {
-                optionStyle = "border-[#004ac6] bg-[#dbe1ff]/30 text-[#004ac6] font-semibold ring-2 ring-[#004ac6]/20";
+                optionStyle =
+                  'border-[#004ac6] bg-[#dbe1ff]/30 text-[#004ac6] font-semibold ring-2 ring-[#004ac6]/20';
               } else if (isSubmitted) {
                 if (isCorrect) {
-                  optionStyle = "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-2 ring-emerald-500/20";
+                  optionStyle =
+                    'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-2 ring-emerald-500/20';
                 } else if (isWrongSelected) {
-                  optionStyle = "border-[#ba1a1a] bg-[#ffdad6]/40 text-[#93000a] ring-2 ring-[#ba1a1a]/20";
+                  optionStyle =
+                    'border-[#ba1a1a] bg-[#ffdad6]/40 text-[#93000a] ring-2 ring-[#ba1a1a]/20';
                 } else {
-                  optionStyle = "border-[#eceef0] bg-white opacity-50";
+                  optionStyle = 'border-[#eceef0] bg-white opacity-50';
                 }
               }
 
@@ -266,15 +283,17 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
                   className={`p-4 rounded-2xl border text-left text-sm sm:text-base transition-all flex items-center justify-between cursor-pointer ${optionStyle}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                      isSelected && !isSubmitted 
-                        ? 'bg-[#004ac6] text-white' 
-                        : isSubmitted && isCorrect 
-                        ? 'bg-emerald-600 text-white'
-                        : isSubmitted && isWrongSelected 
-                        ? 'bg-[#ba1a1a] text-white'
-                        : 'bg-[#eceef0] text-[#505f76]'
-                    }`}>
+                    <span
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                        isSelected && !isSubmitted
+                          ? 'bg-[#004ac6] text-white'
+                          : isSubmitted && isCorrect
+                            ? 'bg-emerald-600 text-white'
+                            : isSubmitted && isWrongSelected
+                              ? 'bg-[#ba1a1a] text-white'
+                              : 'bg-[#eceef0] text-[#505f76]'
+                      }`}
+                    >
                       {String.fromCharCode(65 + i)}
                     </span>
                     <span>{opt}</span>
@@ -298,9 +317,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
                 <HelpCircle className="w-4 h-4" />
                 <span>Explicação / Resolução</span>
               </div>
-              <p className="text-sm text-[#434655] leading-relaxed">
-                {currentQ.explanation}
-              </p>
+              <p className="text-sm text-[#434655] leading-relaxed">{currentQ.explanation}</p>
             </div>
           )}
 
@@ -323,7 +340,9 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
                 onClick={handleNext}
                 className="px-6 py-3 bg-[#004ac6] hover:bg-[#2563eb] text-white font-bold text-sm rounded-xl transition-all flex items-center gap-2 shadow-xs cursor-pointer"
               >
-                <span>{currentIdx < filteredQuestions.length - 1 ? 'Próxima Questão' : 'Ver Resultados'}</span>
+                <span>
+                  {currentIdx < filteredQuestions.length - 1 ? 'Próxima Questão' : 'Ver Resultados'}
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}

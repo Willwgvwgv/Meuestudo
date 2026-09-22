@@ -1,15 +1,15 @@
 import React from 'react';
-import { 
-  TrendingUp, 
-  Award, 
-  Flame, 
-  CheckCircle2, 
-  AlertTriangle, 
-  BookOpen, 
-  Target, 
-  Clock, 
+import {
+  TrendingUp,
+  Award,
+  Flame,
+  CheckCircle2,
+  AlertTriangle,
+  BookOpen,
+  Target,
+  Clock,
   ArrowUp,
-  Sparkles
+  Sparkles,
 } from 'lucide-react';
 import { Subject, StudentProfile } from '../types';
 
@@ -46,7 +46,9 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#004ac6]">{profile.generalAverage}%</span>
+            <span className="text-3xl font-extrabold text-[#004ac6]">
+              {profile.generalAverage}%
+            </span>
             <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-1">
               <ArrowUp className="w-3 h-3 stroke-[3]" /> +8% neste mês
             </span>
@@ -81,9 +83,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             <span className="text-3xl font-extrabold text-amber-600">
               {profile.streakDays} Dias
             </span>
-            <span className="text-xs text-[#737686] font-medium mt-1 block">
-              Recorde: 12 dias
-            </span>
+            <span className="text-xs text-[#737686] font-medium mt-1 block">Recorde: 12 dias</span>
           </div>
         </div>
 
@@ -96,9 +96,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
           </div>
           <div className="mt-4">
             <span className="text-3xl font-extrabold text-[#191c1e]">18h 45m</span>
-            <span className="text-xs text-[#737686] font-medium mt-1 block">
-              Média de 2h30/dia
-            </span>
+            <span className="text-xs text-[#737686] font-medium mt-1 block">Média de 2h30/dia</span>
           </div>
         </div>
       </div>
@@ -108,23 +106,26 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
         {/* Left: Mastery by Discipline */}
         <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-[#191c1e]">
-              Domínio por Disciplina
-            </h2>
+            <h2 className="text-xl font-bold text-[#191c1e]">Domínio por Disciplina</h2>
             <span className="text-xs font-semibold text-[#737686]">Meta Geral: 85%</span>
           </div>
 
           <div className="flex flex-col gap-5">
-            {subjects.map(sub => (
+            {subjects.map((sub) => (
               <div key={sub.id} className="flex flex-col gap-2">
                 <div className="flex justify-between items-center text-sm font-semibold">
                   <span className="text-[#191c1e] flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: sub.color }} />
+                    <span
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{ backgroundColor: sub.color }}
+                    />
                     {sub.name}
                   </span>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-[#737686]">{sub.questionsCount} questões</span>
-                    <span className="text-base font-extrabold text-[#191c1e]">{sub.masteryPercentage}%</span>
+                    <span className="text-base font-extrabold text-[#191c1e]">
+                      {sub.masteryPercentage}%
+                    </span>
                   </div>
                 </div>
 
@@ -132,9 +133,14 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
                 <div className="w-full h-3 bg-[#eceef0] rounded-full overflow-hidden relative">
                   <div
                     className="h-full rounded-full transition-all duration-1000"
-                    style={{ 
+                    style={{
                       width: `${sub.masteryPercentage}%`,
-                      backgroundColor: sub.masteryPercentage >= 90 ? '#004ac6' : sub.masteryPercentage >= 80 ? '#505f76' : '#bc4800'
+                      backgroundColor:
+                        sub.masteryPercentage >= 90
+                          ? '#004ac6'
+                          : sub.masteryPercentage >= 80
+                            ? '#505f76'
+                            : '#bc4800',
                     }}
                   />
                 </div>
@@ -154,11 +160,12 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
 
             <p className="text-xs text-[#434655] leading-relaxed">
-              Com base nos seus erros mais recentes, concentre suas próximas 2 sessões nestes conteúdos:
+              Com base nos seus erros mais recentes, concentre suas próximas 2 sessões nestes
+              conteúdos:
             </p>
 
             <div className="flex flex-col gap-2.5 mt-1">
-              <div 
+              <div
                 onClick={() => onStartFocus('Frações e Operações', 'Matemática')}
                 className="p-3 bg-[#ffdad6]/40 hover:bg-[#ffdad6] rounded-xl border border-[#ba1a1a]/20 cursor-pointer transition-colors"
               >
@@ -169,7 +176,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
                 <span className="text-[11px] text-[#737686]">Matemática • Prova em 7 dias</span>
               </div>
 
-              <div 
+              <div
                 onClick={() => onStartFocus('Biomas Brasileiros', 'Geografia')}
                 className="p-3 bg-[#f2f4f6] hover:bg-[#eceef0] rounded-xl border border-[#c3c6d7]/30 cursor-pointer transition-colors"
               >

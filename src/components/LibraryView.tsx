@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  FileText, 
-  Video, 
-  Map, 
-  BookOpen, 
-  Download, 
-  ExternalLink, 
-  Search, 
-  Filter, 
+import {
+  FileText,
+  Video,
+  Map,
+  BookOpen,
+  Download,
+  ExternalLink,
+  Search,
+  Filter,
   Sparkles,
   Layers,
-  X
+  X,
 } from 'lucide-react';
 import { LibraryItem } from '../types';
 
@@ -23,9 +23,13 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [previewItem, setPreviewItem] = useState<LibraryItem | null>(null);
 
-  const filteredItems = items.filter(item => {
+  const filteredItems = items.filter((item) => {
     if (selectedType !== 'all' && item.type !== selectedType) return false;
-    if (searchFilter && !item.title.toLowerCase().includes(searchFilter.toLowerCase()) && !item.subject.toLowerCase().includes(searchFilter.toLowerCase())) {
+    if (
+      searchFilter &&
+      !item.title.toLowerCase().includes(searchFilter.toLowerCase()) &&
+      !item.subject.toLowerCase().includes(searchFilter.toLowerCase())
+    ) {
       return false;
     }
     return true;
@@ -67,7 +71,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
             { id: 'summary', label: 'Mapas Mentais' },
             { id: 'notes', label: 'Anotações' },
             { id: 'video', label: 'Vídeos' },
-          ].map(tab => (
+          ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setSelectedType(tab.id)}
@@ -85,7 +89,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
 
       {/* Grid of Library Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredItems.map(item => (
+        {filteredItems.map((item) => (
           <div
             key={item.id}
             onClick={() => setPreviewItem(item)}
@@ -115,7 +119,9 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#eceef0] flex items-center justify-between text-xs text-[#737686]">
-              <span className="font-medium">{item.pagesOrDurationText} • {item.sizeOrDuration}</span>
+              <span className="font-medium">
+                {item.pagesOrDurationText} • {item.sizeOrDuration}
+              </span>
               <span className="font-semibold text-[#004ac6] group-hover:underline flex items-center gap-1">
                 Visualizar <ExternalLink className="w-3 h-3" />
               </span>
@@ -137,9 +143,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
                   <span className="text-xs font-bold text-[#004ac6] uppercase tracking-wider block">
                     {previewItem.subject}
                   </span>
-                  <h3 className="text-xl font-bold text-[#191c1e]">
-                    {previewItem.title}
-                  </h3>
+                  <h3 className="text-xl font-bold text-[#191c1e]">{previewItem.title}</h3>
                 </div>
               </div>
 
@@ -152,15 +156,18 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
             </div>
 
             <div className="p-4 bg-[#f7f9fb] rounded-2xl border border-[#eceef0] flex flex-col gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#737686]">Prévia do Conteúdo</span>
-              <p className="text-sm text-[#191c1e] leading-relaxed">
-                {previewItem.contentPreview}
-              </p>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#737686]">
+                Prévia do Conteúdo
+              </span>
+              <p className="text-sm text-[#191c1e] leading-relaxed">{previewItem.contentPreview}</p>
             </div>
 
             <div className="flex flex-wrap gap-2">
               {previewItem.tags.map((tag, i) => (
-                <span key={i} className="px-3 py-1 bg-[#dbe1ff]/50 text-[#004ac6] rounded-full text-xs font-semibold">
+                <span
+                  key={i}
+                  className="px-3 py-1 bg-[#dbe1ff]/50 text-[#004ac6] rounded-full text-xs font-semibold"
+                >
                   #{tag}
                 </span>
               ))}
@@ -175,7 +182,9 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
               </button>
               <button
                 onClick={() => {
-                  alert(`Iniciando download de "${previewItem.title}" (${previewItem.sizeOrDuration})...`);
+                  alert(
+                    `Iniciando download de "${previewItem.title}" (${previewItem.sizeOrDuration})...`,
+                  );
                   setPreviewItem(null);
                 }}
                 className="px-6 py-2.5 bg-[#004ac6] hover:bg-[#2563eb] text-white font-bold text-sm rounded-xl transition-all shadow-xs flex items-center gap-2"

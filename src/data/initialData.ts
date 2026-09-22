@@ -1,4 +1,13 @@
-import { StudentProfile, Subject, Task, CalendarEvent, Question, LibraryItem, NotificationItem, NoteDocument } from '../types';
+import {
+  StudentProfile,
+  Subject,
+  Task,
+  CalendarEvent,
+  Question,
+  LibraryItem,
+  NotificationItem,
+  NoteDocument,
+} from '../types';
 
 export const INITIAL_STUDENT_PROFILE: StudentProfile = {
   name: 'Lucas',
@@ -33,12 +42,48 @@ export const INITIAL_SUBJECTS: Subject[] = [
     alertMessage: '3 conteúdos em alerta',
     description: 'Álgebra, geometria plana, operações com frações e raciocínio lógico.',
     topics: [
-      { id: 'mat-1', name: 'Frações e Operações', masteryPercentage: 54, questionsDone: 68, status: 'danger' },
-      { id: 'mat-2', name: 'Razão e Proporção', masteryPercentage: 63, questionsDone: 52, status: 'alert' },
-      { id: 'mat-3', name: 'Equações do 1º Grau', masteryPercentage: 68, questionsDone: 85, status: 'alert' },
-      { id: 'mat-4', name: 'Porcentagem Básica', masteryPercentage: 86, questionsDone: 44, status: 'good' },
-      { id: 'mat-5', name: 'Geometria: Ângulos e Triângulos', masteryPercentage: 92, questionsDone: 50, status: 'good' },
-      { id: 'mat-6', name: 'Múltiplos e Divisores (MMC/MDC)', masteryPercentage: 94, questionsDone: 46, status: 'good' },
+      {
+        id: 'mat-1',
+        name: 'Frações e Operações',
+        masteryPercentage: 54,
+        questionsDone: 68,
+        status: 'danger',
+      },
+      {
+        id: 'mat-2',
+        name: 'Razão e Proporção',
+        masteryPercentage: 63,
+        questionsDone: 52,
+        status: 'alert',
+      },
+      {
+        id: 'mat-3',
+        name: 'Equações do 1º Grau',
+        masteryPercentage: 68,
+        questionsDone: 85,
+        status: 'alert',
+      },
+      {
+        id: 'mat-4',
+        name: 'Porcentagem Básica',
+        masteryPercentage: 86,
+        questionsDone: 44,
+        status: 'good',
+      },
+      {
+        id: 'mat-5',
+        name: 'Geometria: Ângulos e Triângulos',
+        masteryPercentage: 92,
+        questionsDone: 50,
+        status: 'good',
+      },
+      {
+        id: 'mat-6',
+        name: 'Múltiplos e Divisores (MMC/MDC)',
+        masteryPercentage: 94,
+        questionsDone: 46,
+        status: 'good',
+      },
     ],
   },
   {
@@ -54,11 +99,41 @@ export const INITIAL_SUBJECTS: Subject[] = [
     accentColor: '#d0e1fb',
     description: 'Gramática normativa, análise sintática, interpretação de texto e redação.',
     topics: [
-      { id: 'port-1', name: 'Interpretação e Compreensão de Texto', masteryPercentage: 95, questionsDone: 120, status: 'good' },
-      { id: 'port-2', name: 'Classes de Palavras (Substantivo/Adjetivo)', masteryPercentage: 90, questionsDone: 95, status: 'good' },
-      { id: 'port-3', name: 'Concordância Verbal e Nominal', masteryPercentage: 82, questionsDone: 80, status: 'good' },
-      { id: 'port-4', name: 'Pontuação e Uso da Vírgula', masteryPercentage: 79, questionsDone: 65, status: 'alert' },
-      { id: 'port-5', name: 'Figuras de Linguagem', masteryPercentage: 91, questionsDone: 50, status: 'good' },
+      {
+        id: 'port-1',
+        name: 'Interpretação e Compreensão de Texto',
+        masteryPercentage: 95,
+        questionsDone: 120,
+        status: 'good',
+      },
+      {
+        id: 'port-2',
+        name: 'Classes de Palavras (Substantivo/Adjetivo)',
+        masteryPercentage: 90,
+        questionsDone: 95,
+        status: 'good',
+      },
+      {
+        id: 'port-3',
+        name: 'Concordância Verbal e Nominal',
+        masteryPercentage: 82,
+        questionsDone: 80,
+        status: 'good',
+      },
+      {
+        id: 'port-4',
+        name: 'Pontuação e Uso da Vírgula',
+        masteryPercentage: 79,
+        questionsDone: 65,
+        status: 'alert',
+      },
+      {
+        id: 'port-5',
+        name: 'Figuras de Linguagem',
+        masteryPercentage: 91,
+        questionsDone: 50,
+        status: 'good',
+      },
     ],
   },
   {
@@ -74,10 +149,34 @@ export const INITIAL_SUBJECTS: Subject[] = [
     accentColor: '#ffdbcd',
     description: 'Ecossistemas, biologia celular, corpo humano e matéria e energia.',
     topics: [
-      { id: 'cie-1', name: 'Células e Organelas Celulares', masteryPercentage: 96, questionsDone: 60, status: 'good' },
-      { id: 'cie-2', name: 'Ecossistemas e Cadeias Alimentares', masteryPercentage: 94, questionsDone: 55, status: 'good' },
-      { id: 'cie-3', name: 'Sistema Respiratório e Circulatório', masteryPercentage: 89, questionsDone: 45, status: 'good' },
-      { id: 'cie-4', name: 'Matéria, Estados Físicos e Misturas', masteryPercentage: 90, questionsDone: 55, status: 'good' },
+      {
+        id: 'cie-1',
+        name: 'Células e Organelas Celulares',
+        masteryPercentage: 96,
+        questionsDone: 60,
+        status: 'good',
+      },
+      {
+        id: 'cie-2',
+        name: 'Ecossistemas e Cadeias Alimentares',
+        masteryPercentage: 94,
+        questionsDone: 55,
+        status: 'good',
+      },
+      {
+        id: 'cie-3',
+        name: 'Sistema Respiratório e Circulatório',
+        masteryPercentage: 89,
+        questionsDone: 45,
+        status: 'good',
+      },
+      {
+        id: 'cie-4',
+        name: 'Matéria, Estados Físicos e Misturas',
+        masteryPercentage: 90,
+        questionsDone: 55,
+        status: 'good',
+      },
     ],
   },
   {
@@ -93,10 +192,34 @@ export const INITIAL_SUBJECTS: Subject[] = [
     accentColor: '#e0e3e5',
     description: 'Idade Média, Renascimento, Grandes Navegações e Revolução Industrial.',
     topics: [
-      { id: 'hist-1', name: 'Renascimento Cultural e Científico', masteryPercentage: 92, questionsDone: 40, status: 'good' },
-      { id: 'hist-2', name: 'Feudalismo e Sociedade Medieval', masteryPercentage: 88, questionsDone: 45, status: 'good' },
-      { id: 'hist-3', name: 'Revolução Industrial: Início e Impactos', masteryPercentage: 78, questionsDone: 35, status: 'alert' },
-      { id: 'hist-4', name: 'Grandes Navegações e Mercantilismo', masteryPercentage: 84, questionsDone: 30, status: 'good' },
+      {
+        id: 'hist-1',
+        name: 'Renascimento Cultural e Científico',
+        masteryPercentage: 92,
+        questionsDone: 40,
+        status: 'good',
+      },
+      {
+        id: 'hist-2',
+        name: 'Feudalismo e Sociedade Medieval',
+        masteryPercentage: 88,
+        questionsDone: 45,
+        status: 'good',
+      },
+      {
+        id: 'hist-3',
+        name: 'Revolução Industrial: Início e Impactos',
+        masteryPercentage: 78,
+        questionsDone: 35,
+        status: 'alert',
+      },
+      {
+        id: 'hist-4',
+        name: 'Grandes Navegações e Mercantilismo',
+        masteryPercentage: 84,
+        questionsDone: 30,
+        status: 'good',
+      },
     ],
   },
   {
@@ -112,10 +235,34 @@ export const INITIAL_SUBJECTS: Subject[] = [
     accentColor: '#d0e1fb',
     description: 'Biomas brasileiros, relevo, hidrografia, clima e urbanização no Brasil.',
     topics: [
-      { id: 'geo-1', name: 'Biomas Brasileiros (Cerrado, Amazônia)', masteryPercentage: 72, questionsDone: 50, status: 'alert' },
-      { id: 'geo-2', name: 'Dinâmica Populacional e Urbanização', masteryPercentage: 76, questionsDone: 45, status: 'alert' },
-      { id: 'geo-3', name: 'Relevo, Solos e Hidrografia', masteryPercentage: 80, questionsDone: 45, status: 'good' },
-      { id: 'geo-4', name: 'Climas do Brasil e Massas de Ar', masteryPercentage: 74, questionsDone: 40, status: 'alert' },
+      {
+        id: 'geo-1',
+        name: 'Biomas Brasileiros (Cerrado, Amazônia)',
+        masteryPercentage: 72,
+        questionsDone: 50,
+        status: 'alert',
+      },
+      {
+        id: 'geo-2',
+        name: 'Dinâmica Populacional e Urbanização',
+        masteryPercentage: 76,
+        questionsDone: 45,
+        status: 'alert',
+      },
+      {
+        id: 'geo-3',
+        name: 'Relevo, Solos e Hidrografia',
+        masteryPercentage: 80,
+        questionsDone: 45,
+        status: 'good',
+      },
+      {
+        id: 'geo-4',
+        name: 'Climas do Brasil e Massas de Ar',
+        masteryPercentage: 74,
+        questionsDone: 40,
+        status: 'alert',
+      },
     ],
   },
   {
@@ -131,9 +278,27 @@ export const INITIAL_SUBJECTS: Subject[] = [
     accentColor: '#dbe1ff',
     description: 'Simple Present, Past Continuous, vocabulário temático e compreensão auditiva.',
     topics: [
-      { id: 'ing-1', name: 'Reading Comprehension & Vocabulary', masteryPercentage: 98, questionsDone: 40, status: 'good' },
-      { id: 'ing-2', name: 'Simple Present & Daily Routines', masteryPercentage: 96, questionsDone: 35, status: 'good' },
-      { id: 'ing-3', name: 'Past Simple (Regular & Irregular)', masteryPercentage: 92, questionsDone: 35, status: 'good' },
+      {
+        id: 'ing-1',
+        name: 'Reading Comprehension & Vocabulary',
+        masteryPercentage: 98,
+        questionsDone: 40,
+        status: 'good',
+      },
+      {
+        id: 'ing-2',
+        name: 'Simple Present & Daily Routines',
+        masteryPercentage: 96,
+        questionsDone: 35,
+        status: 'good',
+      },
+      {
+        id: 'ing-3',
+        name: 'Past Simple (Regular & Irregular)',
+        masteryPercentage: 92,
+        questionsDone: 35,
+        status: 'good',
+      },
     ],
   },
 ];
@@ -283,17 +448,20 @@ export const INITIAL_QUESTIONS: Question[] = [
     questionText: 'Ao resolver a operação (3/4 + 2/5) × 10, qual é o resultado obtido?',
     options: ['11,5', '23/2 (11,5)', '23', '10/9'],
     correctAnswerIndex: 1,
-    explanation: 'Primeiro somamos as frações encontrando o MMC(4, 5) = 20. Assim: 15/20 + 8/20 = 23/20. Em seguida, multiplicamos por 10: (23/20) × 10 = 23/2 = 11,5.',
+    explanation:
+      'Primeiro somamos as frações encontrando o MMC(4, 5) = 20. Assim: 15/20 + 8/20 = 23/20. Em seguida, multiplicamos por 10: (23/20) × 10 = 23/2 = 11,5.',
     difficulty: 'Médio',
   },
   {
     id: 'q-2',
     subject: 'Matemática',
     topic: 'Razão e Proporção',
-    questionText: 'Em uma receita de bolo, a proporção de farinha para açúcar é de 3 para 2. Se foram usados 600g de farinha, quanto açúcar deve ser adicionado?',
+    questionText:
+      'Em uma receita de bolo, a proporção de farinha para açúcar é de 3 para 2. Se foram usados 600g de farinha, quanto açúcar deve ser adicionado?',
     options: ['300g', '400g', '450g', '500g'],
     correctAnswerIndex: 1,
-    explanation: 'A proporção é 3/2 = 600/x. Multiplicando em cruz: 3x = 1200 → x = 400g de açúcar.',
+    explanation:
+      'A proporção é 3/2 = 600/x. Multiplicando em cruz: 3x = 1200 → x = 400g de açúcar.',
     difficulty: 'Fácil',
   },
   {
@@ -310,7 +478,8 @@ export const INITIAL_QUESTIONS: Question[] = [
     id: 'q-4',
     subject: 'Português',
     topic: 'Concordância Verbal',
-    questionText: 'Assinale a alternativa em que a concordância verbal está rigorosamente correta segundo a norma-padrão:',
+    questionText:
+      'Assinale a alternativa em que a concordância verbal está rigorosamente correta segundo a norma-padrão:',
     options: [
       'Fazem três anos que estudo nesta escola.',
       'Haviam muitos alunos na biblioteca ontem.',
@@ -318,14 +487,16 @@ export const INITIAL_QUESTIONS: Question[] = [
       'Existe muitas razões para nos dedicarmos.',
     ],
     correctAnswerIndex: 2,
-    explanation: 'O verbo "fazer" indicando tempo decorrido e o verbo "haver" no sentido de existir são impessoais e devem permanecer na 3ª pessoa do singular ("Fazia três anos", "Havia muitos alunos").',
+    explanation:
+      'O verbo "fazer" indicando tempo decorrido e o verbo "haver" no sentido de existir são impessoais e devem permanecer na 3ª pessoa do singular ("Fazia três anos", "Havia muitos alunos").',
     difficulty: 'Médio',
   },
   {
     id: 'q-5',
     subject: 'Ciências',
     topic: 'Células e Organelas',
-    questionText: 'Qual organela celular é responsável pela produção de energia (ATP) por meio da respiração celular nas células eucariontes?',
+    questionText:
+      'Qual organela celular é responsável pela produção de energia (ATP) por meio da respiração celular nas células eucariontes?',
     options: ['Ribossomo', 'Complexo Golgiense', 'Mitocôndria', 'Lisossomo'],
     correctAnswerIndex: 2,
     explanation: 'A mitocôndria é a organela responsável pela respiração celular e síntese de ATP.',
@@ -335,7 +506,8 @@ export const INITIAL_QUESTIONS: Question[] = [
     id: 'q-6',
     subject: 'História',
     topic: 'Revolução Industrial',
-    questionText: 'Qual foi o país pioneiro da Primeira Revolução Industrial no século XVIII e qual fonte de energia foi crucial?',
+    questionText:
+      'Qual foi o país pioneiro da Primeira Revolução Industrial no século XVIII e qual fonte de energia foi crucial?',
     options: [
       'França - Energia Solar e Eólica',
       'Inglaterra - Carvão mineral e Máquina a Vapor',
@@ -343,32 +515,32 @@ export const INITIAL_QUESTIONS: Question[] = [
       'Alemanha - Energia Nuclear',
     ],
     correctAnswerIndex: 1,
-    explanation: 'A Inglaterra foi a pioneira devido a reservas abundantes de carvão e ferro, capitais acumulados e o desenvolvimento da máquina a vapor de James Watt.',
+    explanation:
+      'A Inglaterra foi a pioneira devido a reservas abundantes de carvão e ferro, capitais acumulados e o desenvolvimento da máquina a vapor de James Watt.',
     difficulty: 'Fácil',
   },
   {
     id: 'q-7',
     subject: 'Geografia',
     topic: 'Biomas Brasileiros',
-    questionText: 'Qual bioma brasileiro é considerado a "caixa d\'água do Brasil" por abrigar nascentes de importantes bacias hidrográficas (São Francisco, Araguaia/Tocantins e Paraná)?',
+    questionText:
+      'Qual bioma brasileiro é considerado a "caixa d\'água do Brasil" por abrigar nascentes de importantes bacias hidrográficas (São Francisco, Araguaia/Tocantins e Paraná)?',
     options: ['Caatinga', 'Cerrado', 'Pampa', 'Pantanal'],
     correctAnswerIndex: 1,
-    explanation: 'O Cerrado é conhecido como o berço das águas do Brasil porque alimenta 8 das 12 principais regiões hidrográficas do país.',
+    explanation:
+      'O Cerrado é conhecido como o berço das águas do Brasil porque alimenta 8 das 12 principais regiões hidrográficas do país.',
     difficulty: 'Médio',
   },
   {
     id: 'q-8',
     subject: 'Inglês',
     topic: 'Simple Present & Past',
-    questionText: 'Complete correctly: "Yesterday, Lucas ______ to the library and ______ three chapters of his book."',
-    options: [
-      'goes / read',
-      'went / read',
-      'gone / reads',
-      'went / reading',
-    ],
+    questionText:
+      'Complete correctly: "Yesterday, Lucas ______ to the library and ______ three chapters of his book."',
+    options: ['goes / read', 'went / read', 'gone / reads', 'went / reading'],
     correctAnswerIndex: 1,
-    explanation: '"Yesterday" indica passado simples. O passado de go é went, e o passado de read é read (pronunciado /rɛd/).',
+    explanation:
+      '"Yesterday" indica passado simples. O passado de go é went, e o passado de read é read (pronunciado /rɛd/).',
     difficulty: 'Fácil',
   },
 ];
@@ -384,7 +556,8 @@ export const INITIAL_LIBRARY: LibraryItem[] = [
     pagesOrDurationText: '8 páginas',
     updatedAt: 'Atualizado há 2 dias',
     tags: ['Frações', 'Álgebra', 'Exemplos Práticos'],
-    contentPreview: 'Passo a passo com 15 exemplos resolvidos de soma, subtração, multiplicação e divisão de frações com denominadores diferentes.',
+    contentPreview:
+      'Passo a passo com 15 exemplos resolvidos de soma, subtração, multiplicação e divisão de frações com denominadores diferentes.',
   },
   {
     id: 'lib-2',
@@ -396,7 +569,8 @@ export const INITIAL_LIBRARY: LibraryItem[] = [
     pagesOrDurationText: 'Visual Interativo',
     updatedAt: 'Atualizado há 4 dias',
     tags: ['Cerrado', 'Amazônia', 'Mata Atlântica', 'Mapas'],
-    contentPreview: 'Diagrama esquemático relacionando tipos de vegetação, precipitação média e solos predominantes.',
+    contentPreview:
+      'Diagrama esquemático relacionando tipos de vegetação, precipitação média e solos predominantes.',
   },
   {
     id: 'lib-3',
@@ -408,7 +582,8 @@ export const INITIAL_LIBRARY: LibraryItem[] = [
     pagesOrDurationText: '5 páginas',
     updatedAt: 'Atualizado há 1 semana',
     tags: ['Inglaterra', 'Máquina a Vapor', 'Sociedade'],
-    contentPreview: 'Principais transformações sociais, êxodo rural, condições de trabalho e surgimento dos movimentos operários.',
+    contentPreview:
+      'Principais transformações sociais, êxodo rural, condições de trabalho e surgimento dos movimentos operários.',
   },
   {
     id: 'lib-4',
@@ -420,7 +595,8 @@ export const INITIAL_LIBRARY: LibraryItem[] = [
     pagesOrDurationText: '1080p HD',
     updatedAt: 'Atualizado há 2 semanas',
     tags: ['Biologia', 'Citologia', 'Mitocôndria'],
-    contentPreview: 'Animação 3D interativa explicando a função de cada organela celular e transporte de membrana.',
+    contentPreview:
+      'Animação 3D interativa explicando a função de cada organela celular e transporte de membrana.',
   },
   {
     id: 'lib-5',
@@ -432,7 +608,8 @@ export const INITIAL_LIBRARY: LibraryItem[] = [
     pagesOrDurationText: '12 páginas',
     updatedAt: 'Atualizado hoje',
     tags: ['Gramática', 'Verbos', 'Norma Culta'],
-    contentPreview: 'Casos especiais do sujeito composto, verbos impessoais e pronomes de tratamento com exercícios.',
+    contentPreview:
+      'Casos especiais do sujeito composto, verbos impessoais e pronomes de tratamento com exercícios.',
   },
 ];
 
@@ -528,7 +705,7 @@ export const INITIAL_DOCUMENTS: NoteDocument[] = [
   <li>Problemas contextualizados (divisão de pizzas/terrenos)</li>
   <li>Transformação de fração imprópria em número misto</li>
 </ul>
-`
+`,
   },
   {
     id: 'doc-2',
@@ -581,7 +758,7 @@ export const INITIAL_DOCUMENTS: NoteDocument[] = [
     <tr><td style="padding: 6px 10px; border: 1px solid #cbd5e1;"><strong>5. Detalhamento</strong></td><td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Explicação adicional de um dos quatro itens anteriores.</td></tr>
   </tbody>
 </table>
-`
+`,
   },
   {
     id: 'doc-3',
@@ -609,7 +786,6 @@ export const INITIAL_DOCUMENTS: NoteDocument[] = [
 <div style="background-color: #ecfdf5; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 8px; margin: 16px 0;">
   <strong>🌱 Exclusividades da Célula Vegetal:</strong> Parede celular de celulose, Cloroplastos (clorofila para fotossíntese) e Vacúolo central volumoso de suco celular.
 </div>
-`
-  }
+`,
+  },
 ];
-

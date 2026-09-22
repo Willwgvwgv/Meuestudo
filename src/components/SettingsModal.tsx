@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X, User, Check, Palette, Sparkles, Sliders, Moon, Sun, Coffee, Eye, RotateCcw, BookOpen } from 'lucide-react';
+import {
+  X,
+  User,
+  Check,
+  Palette,
+  Sparkles,
+  Sliders,
+  Moon,
+  Sun,
+  Coffee,
+  Eye,
+  RotateCcw,
+  BookOpen,
+} from 'lucide-react';
 import { StudentProfile, ThemeConfig } from '../types';
 import { THEME_PRESETS, DEFAULT_THEME } from '../utils/theme';
 
@@ -74,7 +87,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div 
+            <div
               style={{ backgroundColor: currentTheme.primaryLight, color: currentTheme.primary }}
               className="p-2 rounded-2xl"
             >
@@ -82,7 +95,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900">Configurações do Meu Estudo</h2>
-              <p className="text-xs text-slate-500">Ajuste seu perfil de estudante e personalize a tabela de cores</p>
+              <p className="text-xs text-slate-500">
+                Ajuste seu perfil de estudante e personalize a tabela de cores
+              </p>
             </div>
           </div>
           <button
@@ -170,7 +185,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   ))}
                 </div>
                 <p className="text-[11px] text-slate-400 mt-1.5">
-                  Adequado para qualquer nível: ensino fundamental, médio, faculdade, pós ou concursos.
+                  Adequado para qualquer nível: ensino fundamental, médio, faculdade, pós ou
+                  concursos.
                 </p>
               </div>
 
@@ -230,7 +246,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-slate-800">Escolha uma Paleta Pronta</h3>
-                  <p className="text-xs text-slate-500">Mude as cores de todo o app com um único clique</p>
+                  <p className="text-xs text-slate-500">
+                    Mude as cores de todo o app com um único clique
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -243,27 +261,42 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               {/* Grid of presets */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-48 overflow-y-auto p-1">
-                {THEME_PRESETS.map(preset => {
-                  const isSelected = currentTheme.id === preset.id || currentTheme.primary === preset.primary;
+                {THEME_PRESETS.map((preset) => {
+                  const isSelected =
+                    currentTheme.id === preset.id || currentTheme.primary === preset.primary;
                   return (
                     <div
                       key={preset.id}
                       onClick={() => onApplyTheme(preset)}
                       className={`p-2.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col gap-1.5 ${
-                        isSelected 
-                          ? 'border-indigo-600 bg-indigo-50/50 shadow-xs' 
+                        isSelected
+                          ? 'border-indigo-600 bg-indigo-50/50 shadow-xs'
                           : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-800 truncate">{preset.name}</span>
+                        <span className="text-xs font-bold text-slate-800 truncate">
+                          {preset.name}
+                        </span>
                         {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600 stroke-[3]" />}
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="w-4 h-4 rounded-md shrink-0 shadow-2xs" style={{ backgroundColor: preset.primary }} />
-                        <span className="w-4 h-4 rounded-md shrink-0 shadow-2xs" style={{ backgroundColor: preset.accent }} />
-                        <span className="w-4 h-4 rounded-md shrink-0 border border-slate-200" style={{ backgroundColor: preset.background }} />
-                        <span className="w-4 h-4 rounded-md shrink-0 border border-slate-200" style={{ backgroundColor: preset.surface }} />
+                        <span
+                          className="w-4 h-4 rounded-md shrink-0 shadow-2xs"
+                          style={{ backgroundColor: preset.primary }}
+                        />
+                        <span
+                          className="w-4 h-4 rounded-md shrink-0 shadow-2xs"
+                          style={{ backgroundColor: preset.accent }}
+                        />
+                        <span
+                          className="w-4 h-4 rounded-md shrink-0 border border-slate-200"
+                          style={{ backgroundColor: preset.background }}
+                        />
+                        <span
+                          className="w-4 h-4 rounded-md shrink-0 border border-slate-200"
+                          style={{ backgroundColor: preset.surface }}
+                        />
                       </div>
                     </div>
                   );
@@ -287,7 +320,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onChange={(e) => handleCustomColorChange('primary', e.target.value)}
                         className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent p-0"
                       />
-                      <span className="font-mono text-xs text-slate-500">{currentTheme.primary}</span>
+                      <span className="font-mono text-xs text-slate-500">
+                        {currentTheme.primary}
+                      </span>
                     </div>
                   </div>
 
@@ -301,7 +336,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onChange={(e) => handleCustomColorChange('accent', e.target.value)}
                         className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent p-0"
                       />
-                      <span className="font-mono text-xs text-slate-500">{currentTheme.accent}</span>
+                      <span className="font-mono text-xs text-slate-500">
+                        {currentTheme.accent}
+                      </span>
                     </div>
                   </div>
 
@@ -315,7 +352,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onChange={(e) => handleCustomColorChange('background', e.target.value)}
                         className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent p-0"
                       />
-                      <span className="font-mono text-xs text-slate-500">{currentTheme.background}</span>
+                      <span className="font-mono text-xs text-slate-500">
+                        {currentTheme.background}
+                      </span>
                     </div>
                   </div>
 
@@ -329,7 +368,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onChange={(e) => handleCustomColorChange('surface', e.target.value)}
                         className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent p-0"
                       />
-                      <span className="font-mono text-xs text-slate-500">{currentTheme.surface}</span>
+                      <span className="font-mono text-xs text-slate-500">
+                        {currentTheme.surface}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -353,4 +394,3 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     </div>
   );
 };
-

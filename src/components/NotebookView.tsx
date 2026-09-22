@@ -1,48 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { NoteDocument, Subject } from '../types';
-import { 
-  FileText, 
-  Save, 
-  Download, 
-  Plus, 
-  Trash2, 
-  Copy, 
-  Check, 
-  Bold, 
-  Italic, 
-  Underline, 
-  Strikethrough, 
-  AlignLeft, 
-  AlignCenter, 
-  AlignRight, 
-  AlignJustify, 
-  List, 
-  ListOrdered, 
-  Table as TableIcon, 
-  Sparkles, 
-  Highlighter, 
-  Type, 
-  Palette, 
-  Printer, 
-  Undo, 
-  Redo, 
-  Search, 
-  Star, 
-  FolderPlus, 
-  Share2, 
-  SlidersHorizontal, 
-  HelpCircle, 
-  ChevronDown, 
-  Link as LinkIcon, 
-  Image as ImageIcon, 
-  Minus, 
-  Code, 
-  Maximize2, 
-  Minimize2, 
-  Tag, 
-  FileDown, 
+import {
+  FileText,
+  Save,
+  Download,
+  Plus,
+  Trash2,
+  Copy,
+  Check,
+  Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+  List,
+  ListOrdered,
+  Table as TableIcon,
+  Sparkles,
+  Highlighter,
+  Type,
+  Palette,
+  Printer,
+  Undo,
+  Redo,
+  Search,
+  Star,
+  FolderPlus,
+  Share2,
+  SlidersHorizontal,
+  HelpCircle,
+  ChevronDown,
+  Link as LinkIcon,
+  Image as ImageIcon,
+  Minus,
+  Code,
+  Maximize2,
+  Minimize2,
+  Tag,
+  FileDown,
   Layers,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 
 interface NotebookViewProps {
@@ -62,15 +62,17 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 }) => {
   // Active document selection
   const [activeDocId, setActiveDocId] = useState<string>(documents[0]?.id || '');
-  const activeDoc = documents.find(d => d.id === activeDocId) || documents[0];
+  const activeDoc = documents.find((d) => d.id === activeDocId) || documents[0];
 
   // Editor internal states
   const [title, setTitle] = useState<string>(activeDoc?.title || 'Novo Documento');
   const [subject, setSubject] = useState<string>(activeDoc?.subject || 'Geral');
-  const [paperStyle, setPaperStyle] = useState<'blank' | 'lined' | 'grid' | 'sepia' | 'dark'>(activeDoc?.paperStyle || 'blank');
+  const [paperStyle, setPaperStyle] = useState<'blank' | 'lined' | 'grid' | 'sepia' | 'dark'>(
+    activeDoc?.paperStyle || 'blank',
+  );
   const [tags, setTags] = useState<string[]>(activeDoc?.tags || []);
   const [tagInput, setTagInput] = useState<string>('');
-  
+
   // UI Panels & Layout states
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const [searchDocQuery, setSearchDocQuery] = useState<string>('');
@@ -97,7 +99,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
       setSubject(activeDoc.subject || 'Geral');
       setPaperStyle(activeDoc.paperStyle || 'blank');
       setTags(activeDoc.tags || []);
-      
+
       if (editorRef.current) {
         isUpdatingFromState.current = true;
         editorRef.current.innerHTML = activeDoc.content || '';
@@ -138,7 +140,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
   const handleSave = () => {
     if (!activeDoc || !editorRef.current) return;
     setSaveStatus('saving');
-    
+
     const updated: NoteDocument = {
       ...activeDoc,
       title: title.trim() || 'Documento Sem Título',
@@ -174,11 +176,17 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
   }, [saveStatus, title, subject, paperStyle, tags]);
 
   // Create new document
-  const handleCreateNew = (customTemplate?: { title: string; content: string; subject: string }) => {
+  const handleCreateNew = (customTemplate?: {
+    title: string;
+    content: string;
+    subject: string;
+  }) => {
     const newDoc = onCreateDocument({
       title: customTemplate?.title || 'Novo Documento',
       subject: customTemplate?.subject || 'Geral',
-      content: customTemplate?.content || '<h1>Novo Documento</h1><p>Comece a escrever suas anotações aqui...</p>',
+      content:
+        customTemplate?.content ||
+        '<h1>Novo Documento</h1><p>Comece a escrever suas anotações aqui...</p>',
       tags: ['Anotações'],
       isFavorite: false,
       paperStyle: 'blank',
@@ -216,7 +224,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
           </body></html>`;
 
     const blob = new Blob(['\ufeff', header], {
-      type: 'application/msword'
+      type: 'application/msword',
     });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -231,7 +239,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 
   const handleDownloadTxt = () => {
     if (!editorRef.current) return;
-    const text = `${title}\nMatéria: ${subject}\nData: ${new Date().toLocaleDateString('pt-BR')}\n----------------------------------\n\n` + (editorRef.current.innerText || '');
+    const text =
+      `${title}\nMatéria: ${subject}\nData: ${new Date().toLocaleDateString('pt-BR')}\n----------------------------------\n\n` +
+      (editorRef.current.innerText || '');
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -246,9 +256,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 
   const handleDownloadMarkdown = () => {
     if (!editorRef.current) return;
-    let html = editorRef.current.innerHTML;
+    const html = editorRef.current.innerHTML;
     // Simple fast HTML to Markdown converter
-    let md = html
+    const md = html
       .replace(/<h1>(.*?)<\/h1>/gi, '# $1\n\n')
       .replace(/<h2>(.*?)<\/h2>/gi, '## $1\n\n')
       .replace(/<h3>(.*?)<\/h3>/gi, '### $1\n\n')
@@ -363,15 +373,16 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter(t => t !== tagToRemove));
+    setTags(tags.filter((t) => t !== tagToRemove));
     setSaveStatus('unsaved');
   };
 
   // Filtered document list for sidebar
-  const filteredDocuments = documents.filter(doc => {
-    const matchesSearch = doc.title.toLowerCase().includes(searchDocQuery.toLowerCase()) ||
-                          doc.subject.toLowerCase().includes(searchDocQuery.toLowerCase()) ||
-                          doc.tags.some(t => t.toLowerCase().includes(searchDocQuery.toLowerCase()));
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesSearch =
+      doc.title.toLowerCase().includes(searchDocQuery.toLowerCase()) ||
+      doc.subject.toLowerCase().includes(searchDocQuery.toLowerCase()) ||
+      doc.tags.some((t) => t.toLowerCase().includes(searchDocQuery.toLowerCase()));
     const matchesSubject = selectedSubjectFilter === 'all' || doc.subject === selectedSubjectFilter;
     const matchesFav = !showFavoritesOnly || doc.isFavorite;
     return matchesSearch && matchesSubject && matchesFav;
@@ -395,7 +406,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
   };
 
   return (
-    <div className={`flex flex-col h-[calc(100vh-6rem)] ${fullScreenMode ? 'fixed inset-0 z-50 bg-[#f7f9fb] h-screen p-4' : ''}`}>
+    <div
+      className={`flex flex-col h-[calc(100vh-6rem)] ${fullScreenMode ? 'fixed inset-0 z-50 bg-[#f7f9fb] h-screen p-4' : ''}`}
+    >
       {/* Top Application Bar for Notebook */}
       <div className="bg-white border border-[#c3c6d7]/40 rounded-2xl p-3 mb-3 shadow-xs flex flex-wrap items-center justify-between gap-3">
         {/* Left: Document Info & Toggle Sidebar */}
@@ -404,7 +417,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
             id="toggle-notebook-drawer-btn"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className={`p-2 rounded-xl transition-colors ${sidebarOpen ? 'bg-[#004ac6]/10 text-[#004ac6]' : 'text-slate-600 hover:bg-slate-100'}`}
-            title={sidebarOpen ? "Ocultar lista de arquivos" : "Mostrar lista de arquivos"}
+            title={sidebarOpen ? 'Ocultar lista de arquivos' : 'Mostrar lista de arquivos'}
           >
             <Layers className="w-5 h-5" />
           </button>
@@ -438,8 +451,10 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                 className="bg-slate-100 text-slate-700 rounded-md px-2 py-0.5 font-medium border-0 focus:ring-1 focus:ring-[#004ac6] cursor-pointer"
               >
                 <option value="Geral">Geral</option>
-                {subjects.map(s => (
-                  <option key={s.id} value={s.name}>{s.name}</option>
+                {subjects.map((s) => (
+                  <option key={s.id} value={s.name}>
+                    {s.name}
+                  </option>
                 ))}
               </select>
 
@@ -450,14 +465,10 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </span>
                 )}
                 {saveStatus === 'saving' && (
-                  <span className="text-blue-600 animate-pulse font-medium">
-                    Salvando...
-                  </span>
+                  <span className="text-blue-600 animate-pulse font-medium">Salvando...</span>
                 )}
                 {saveStatus === 'unsaved' && (
-                  <span className="text-amber-600 font-medium">
-                    Alterações pendentes
-                  </span>
+                  <span className="text-amber-600 font-medium">Alterações pendentes</span>
                 )}
               </span>
             </div>
@@ -510,7 +521,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
             </button>
 
             {showExportMenu && (
-              <div 
+              <div
                 id="export-menu-popover"
                 className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50 animate-in fade-in zoom-in-95 duration-100"
               >
@@ -528,7 +539,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </div>
                   <div>
                     <p className="font-medium leading-none">Microsoft Word (.doc)</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Compatível com Word e Google Docs</p>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Compatível com Word e Google Docs
+                    </p>
                   </div>
                 </button>
 
@@ -556,7 +569,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </div>
                   <div>
                     <p className="font-medium leading-none">Markdown (.md)</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Formatado para Obsidian / Notion</p>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Formatado para Obsidian / Notion
+                    </p>
                   </div>
                 </button>
 
@@ -582,7 +597,11 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   className="w-full px-3 py-2 flex items-center gap-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors text-left"
                 >
                   <Copy className="w-4 h-4 text-slate-500" />
-                  <span>{copiedNotification ? 'Copiado para Área de Transferência!' : 'Copiar Todo o Texto'}</span>
+                  <span>
+                    {copiedNotification
+                      ? 'Copiado para Área de Transferência!'
+                      : 'Copiar Todo o Texto'}
+                  </span>
                 </button>
               </div>
             )}
@@ -593,7 +612,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
             id="fullscreen-toggle-btn"
             onClick={() => setFullScreenMode(!fullScreenMode)}
             className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors hidden sm:block"
-            title={fullScreenMode ? "Sair da tela cheia" : "Modo foco tela cheia"}
+            title={fullScreenMode ? 'Sair da tela cheia' : 'Modo foco tela cheia'}
           >
             {fullScreenMode ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
           </button>
@@ -604,7 +623,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
       <div className="flex-1 flex gap-3 overflow-hidden">
         {/* Left Files/Notes Drawer */}
         {sidebarOpen && (
-          <div 
+          <div
             id="notebook-file-explorer"
             className="w-72 md:w-80 bg-white border border-[#c3c6d7]/40 rounded-2xl flex flex-col shrink-0 overflow-hidden shadow-xs"
           >
@@ -645,7 +664,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                 >
                   Todas
                 </button>
-                {subjects.map(s => (
+                {subjects.map((s) => (
                   <button
                     key={s.id}
                     onClick={() => setSelectedSubjectFilter(s.name)}
@@ -671,15 +690,15 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </button>
                 </div>
               ) : (
-                filteredDocuments.map(doc => {
+                filteredDocuments.map((doc) => {
                   const isActive = doc.id === activeDocId;
                   return (
                     <div
                       key={doc.id}
                       onClick={() => setActiveDocId(doc.id)}
                       className={`group relative p-2.5 rounded-xl cursor-pointer transition-all ${
-                        isActive 
-                          ? 'bg-[#004ac6]/10 border border-[#004ac6]/30 text-[#004ac6]' 
+                        isActive
+                          ? 'bg-[#004ac6]/10 border border-[#004ac6]/30 text-[#004ac6]'
                           : 'hover:bg-slate-50 text-slate-700 border border-transparent'
                       }`}
                     >
@@ -693,7 +712,10 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                               {doc.subject}
                             </span>
                             <span className="text-[10px] text-slate-400">
-                              {new Date(doc.updatedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+                              {new Date(doc.updatedAt).toLocaleDateString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                              })}
                             </span>
                           </div>
                         </div>
@@ -706,7 +728,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                               if (window.confirm(`Deseja excluir a anotação "${doc.title}"?`)) {
                                 onDeleteDocument(doc.id);
                                 if (activeDocId === doc.id && documents.length > 1) {
-                                  const next = documents.find(d => d.id !== doc.id);
+                                  const next = documents.find((d) => d.id !== doc.id);
                                   if (next) setActiveDocId(next.id);
                                 }
                               }
@@ -966,7 +988,26 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 
               {showSymbolPicker && (
                 <div className="absolute left-0 mt-1 w-56 bg-white border border-slate-200 rounded-xl shadow-lg p-2 z-40 grid grid-cols-6 gap-1 text-sm font-semibold">
-                  {['π', 'θ', '√', '∑', '∆', '∞', 'α', 'β', 'λ', '±', '≤', '≥', '≠', '≈', '²', '³', '½', '→'].map(sym => (
+                  {[
+                    'π',
+                    'θ',
+                    '√',
+                    '∑',
+                    '∆',
+                    '∞',
+                    'α',
+                    'β',
+                    'λ',
+                    '±',
+                    '≤',
+                    '≥',
+                    '≠',
+                    '≈',
+                    '²',
+                    '³',
+                    '½',
+                    '→',
+                  ].map((sym) => (
                     <button
                       key={sym}
                       onClick={() => handleInsertSymbol(sym)}
@@ -989,7 +1030,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 
             {/* Paper Texture Selector */}
             <div className="ml-auto flex items-center gap-1.5">
-              <span className="text-[11px] text-slate-400 font-medium hidden lg:inline">Papel:</span>
+              <span className="text-[11px] text-slate-400 font-medium hidden lg:inline">
+                Papel:
+              </span>
               <select
                 id="paper-style-select"
                 value={paperStyle}
@@ -1044,7 +1087,7 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                 onKeyDown={handleKeyDown}
                 suppressContentEditableWarning
                 className="outline-none min-h-[850px] prose prose-slate max-w-none text-base leading-relaxed selection:bg-blue-200"
-                placeholder="Comece a escrever suas anotações, resumos ou redação aqui..."
+                data-placeholder="Comece a escrever suas anotações, resumos ou redação aqui..."
               />
             </div>
           </div>
@@ -1053,9 +1096,15 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
           <div className="bg-white border-t border-slate-200 px-4 py-2 flex flex-wrap items-center justify-between text-xs text-slate-500 select-none">
             {/* Left stats */}
             <div className="flex items-center gap-4">
-              <span><strong>{stats.words}</strong> palavras</span>
-              <span><strong>{stats.chars}</strong> caracteres</span>
-              <span>~<strong>{stats.readingTime}</strong> min de leitura</span>
+              <span>
+                <strong>{stats.words}</strong> palavras
+              </span>
+              <span>
+                <strong>{stats.chars}</strong> caracteres
+              </span>
+              <span>
+                ~<strong>{stats.readingTime}</strong> min de leitura
+              </span>
             </div>
 
             {/* Right tags & shortcuts */}
@@ -1094,11 +1143,12 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 overflow-y-auto">
               {/* Template 1: Cornell Notes */}
-              <div 
-                onClick={() => handleCreateNew({
-                  title: 'Método Cornell: Anotações de Estudo',
-                  subject: 'Geral',
-                  content: `<h1>Método Cornell: Tópico de Estudo</h1>
+              <div
+                onClick={() =>
+                  handleCreateNew({
+                    title: 'Método Cornell: Anotações de Estudo',
+                    subject: 'Geral',
+                    content: `<h1>Método Cornell: Tópico de Estudo</h1>
 <p><strong>Instrutor(a) / Fonte:</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Data:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
 <hr />
 <table style="width: 100%; border-collapse: collapse; margin: 16px 0; border: 1px solid #cbd5e1;">
@@ -1126,8 +1176,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 <div style="background-color: #ecfdf5; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 8px; margin: 16px 0;">
   <strong>📌 Síntese / Conclusão Geral (2 a 3 linhas):</strong><br />
   Resuma o que você aprendeu com suas próprias palavras para fixar o conteúdo na memória de longo prazo.
-</div>`
-                })}
+</div>`,
+                  })
+                }
                 className="p-4 rounded-2xl border border-slate-200 hover:border-[#004ac6] hover:shadow-md transition-all cursor-pointer bg-slate-50/50 group"
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -1139,16 +1190,18 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </h4>
                 </div>
                 <p className="text-xs text-slate-500">
-                  Ideal para sínteses e aulas com divisão entre palavras-chave, anotações detalhadas e síntese final.
+                  Ideal para sínteses e aulas com divisão entre palavras-chave, anotações detalhadas
+                  e síntese final.
                 </p>
               </div>
 
               {/* Template 2: Redação / Texto Argumentativo */}
-              <div 
-                onClick={() => handleCreateNew({
-                  title: 'Redação Dissertativa / Peça Argumentativa',
-                  subject: 'Comunicação',
-                  content: `<h1>Estrutura Dissertativa-Argumentativa</h1>
+              <div
+                onClick={() =>
+                  handleCreateNew({
+                    title: 'Redação Dissertativa / Peça Argumentativa',
+                    subject: 'Comunicação',
+                    content: `<h1>Estrutura Dissertativa-Argumentativa</h1>
 <p><strong>Tema / Deliberação:</strong> [Insira o tema, edital ou proposta aqui]</p>
 <hr />
 <h2>1. Introdução & Contextualização</h2>
@@ -1161,8 +1214,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
 <p>[Tópico frasal do 2º argumento + Repertório legítimo + Conexão lógica com o problema ou tese]</p>
 
 <h2>4. Conclusão & Proposta / Encaminhamento</h2>
-<p>[Síntese dos argumentos + Proposta de solução / intervenção com agentes, meios e impactos práticos]</p>`
-                })}
+<p>[Síntese dos argumentos + Proposta de solução / intervenção com agentes, meios e impactos práticos]</p>`,
+                  })
+                }
                 className="p-4 rounded-2xl border border-slate-200 hover:border-[#004ac6] hover:shadow-md transition-all cursor-pointer bg-slate-50/50 group"
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -1174,16 +1228,18 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </h4>
                 </div>
                 <p className="text-xs text-slate-500">
-                  Estrutura analítica em 4 partes com introdução, 2 eixos argumentativos e encaminhamento de conclusão.
+                  Estrutura analítica em 4 partes com introdução, 2 eixos argumentativos e
+                  encaminhamento de conclusão.
                 </p>
               </div>
 
               {/* Template 3: Ficha de Fórmulas / Cheat Sheet */}
-              <div 
-                onClick={() => handleCreateNew({
-                  title: 'Ficha de Fórmulas e Raciocínios Rápidos',
-                  subject: 'Matemática',
-                  content: `<h1>Ficha de Fórmulas e Resumo para Prova</h1>
+              <div
+                onClick={() =>
+                  handleCreateNew({
+                    title: 'Ficha de Fórmulas e Raciocínios Rápidos',
+                    subject: 'Matemática',
+                    content: `<h1>Ficha de Fórmulas e Resumo para Prova</h1>
 <p><strong>Disciplina:</strong> Matemática / Física &nbsp;|&nbsp; <strong>Revisão Rápida</strong></p>
 <hr />
 
@@ -1206,8 +1262,9 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
     <tr><td style="padding: 6px; border: 1px solid #cbd5e1;">Tempo</td><td style="padding: 6px; border: 1px solid #cbd5e1;">t</td><td style="padding: 6px; border: 1px solid #cbd5e1;">Segundos (s)</td></tr>
     <tr><td style="padding: 6px; border: 1px solid #cbd5e1;">Aceleração</td><td style="padding: 6px; border: 1px solid #cbd5e1;">a</td><td style="padding: 6px; border: 1px solid #cbd5e1;">m/s²</td></tr>
   </tbody>
-</table>`
-                })}
+</table>`,
+                  })
+                }
                 className="p-4 rounded-2xl border border-slate-200 hover:border-[#004ac6] hover:shadow-md transition-all cursor-pointer bg-slate-50/50 group"
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -1219,17 +1276,21 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
                   </h4>
                 </div>
                 <p className="text-xs text-slate-500">
-                  Tabelas de conversão, unidades de medida e blocos de equações para fixação antes de exames.
+                  Tabelas de conversão, unidades de medida e blocos de equações para fixação antes
+                  de exames.
                 </p>
               </div>
 
               {/* Template 4: Em Branco */}
-              <div 
-                onClick={() => handleCreateNew({
-                  title: 'Documento em Branco',
-                  subject: 'Geral',
-                  content: '<h1>Documento em Branco</h1><p>Comece a redigir suas ideias livremente...</p>'
-                })}
+              <div
+                onClick={() =>
+                  handleCreateNew({
+                    title: 'Documento em Branco',
+                    subject: 'Geral',
+                    content:
+                      '<h1>Documento em Branco</h1><p>Comece a redigir suas ideias livremente...</p>',
+                  })
+                }
                 className="p-4 rounded-2xl border border-slate-200 hover:border-[#004ac6] hover:shadow-md transition-all cursor-pointer bg-slate-50/50 group"
               >
                 <div className="flex items-center gap-2 mb-1.5">

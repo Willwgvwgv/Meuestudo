@@ -77,9 +77,7 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-[#191c1e] block mb-1">
-                Disciplina
-              </label>
+              <label className="text-xs font-bold text-[#191c1e] block mb-1">Disciplina</label>
               <select
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
@@ -94,9 +92,7 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#191c1e] block mb-1">
-                Prioridade
-              </label>
+              <label className="text-xs font-bold text-[#191c1e] block mb-1">Prioridade</label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as any)}
@@ -126,9 +122,7 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#191c1e] block mb-1">
-                Prazo / Data
-              </label>
+              <label className="text-xs font-bold text-[#191c1e] block mb-1">Prazo / Data</label>
               <input
                 type="text"
                 placeholder="Hoje, Amanhã, 10/09..."

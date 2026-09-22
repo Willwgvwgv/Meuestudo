@@ -1,4 +1,12 @@
-export type TabType = 'inicio' | 'tarefas' | 'calendario' | 'materias' | 'questoes' | 'biblioteca' | 'caderno' | 'evolucao';
+export type TabType =
+  | 'inicio'
+  | 'tarefas'
+  | 'calendario'
+  | 'materias'
+  | 'questoes'
+  | 'biblioteca'
+  | 'caderno'
+  | 'evolucao';
 
 export interface Task {
   id: string;
@@ -89,7 +97,13 @@ export interface StudentProfile {
   questionsSolved: number;
   streakDays: number;
   dailyGoalMinutes: number;
-  weeklyFocusHistory: { day: string; fullDay: string; heightPercent: number; active: boolean; isToday: boolean }[];
+  weeklyFocusHistory: {
+    day: string;
+    fullDay: string;
+    heightPercent: number;
+    active: boolean;
+    isToday: boolean;
+  }[];
 }
 
 export interface NotificationItem {
@@ -131,4 +145,3 @@ export interface NoteDocument {
   folder?: string;
   paperStyle?: 'blank' | 'lined' | 'grid' | 'sepia' | 'dark';
 }
-

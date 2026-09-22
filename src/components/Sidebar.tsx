@@ -28,8 +28,20 @@ interface SidebarProps {
   onSignOut?: () => void;
 }
 
-export const LOGO_URL =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDA-8GdXJibg6kWaVUsYnr_tbMKQsC-9qCHiAfdVUMGEsd1rVmAhNHxFqXbbx467gihIOHcdj_2T42JUvZlr_MXTKyIqOPvuve4vfXQ4EpqYzBMQ2wH3PkwMTQIZoZjfpIcBO3N5FmU1Ud1msWIkTHBEtYf-JYdSM7uLe44cAzCPpwvU2Q_0KsdeDKZe3bgdSzTZxIRFl8cQMKd6xB__p7g6Y6iVnnUZkB2_vLJZlXs12-cogcDWJD70w';
+const BrandMark: React.FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
+    <rect width="32" height="32" rx="9" fill="var(--color-primary)" />
+    <path d="M8 12.5 16 8l8 4.5-8 4.5-8-4.5Z" fill="white" />
+    <path
+      d="M11 15.2v4.6c0 1.3 2.2 2.7 5 2.7s5-1.4 5-2.7v-4.6"
+      stroke="white"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M23 13v5" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+  </svg>
+);
 
 export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
@@ -83,7 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       <aside
         id="app-sidebar"
-        className={`fixed top-0 left-0 h-full w-72 bg-[#f2f4f6] z-50 flex flex-col border-r border-[#c3c6d7]/30 transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-full w-72 bg-[#f2f4f6] z-50 flex flex-col border-r border-[#c3c6d7]/30 shadow-[4px_0_24px_-8px_rgba(16,24,40,0.08)] lg:shadow-none transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -93,17 +105,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className="flex items-center gap-3 cursor-pointer select-none"
             onClick={() => handleNavClick('inicio')}
           >
-            <img
-              src={LOGO_URL}
-              alt="Meu Estudo Logo"
-              className="h-8 w-auto object-contain"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                // Fallback graceful vector icon if external link blocked
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
-            />
-            <span className="font-bold text-2xl text-[#004ac6] tracking-tight">Meu Estudo</span>
+            <BrandMark className="h-9 w-9 shrink-0 shadow-sm rounded-[10px]" />
+            <div className="leading-tight">
+              <span className="font-extrabold text-xl text-[#191c1e] tracking-tight block">
+                Meu Estudo
+              </span>
+              <span className="text-[11px] font-medium text-[#737686]">Plataforma de Estudos</span>
+            </div>
           </div>
 
           <button
@@ -117,7 +125,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 px-4 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
@@ -125,12 +133,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={item.id}
                 id={`nav-item-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-medium text-sm transition-all text-left ${
+                className={`relative w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-medium text-sm transition-all text-left ${
                   isActive
-                    ? 'bg-[#2563eb] text-white shadow-sm font-semibold'
-                    : 'text-[#434655] hover:bg-[#e6e8ea] hover:text-[#191c1e]'
+                    ? 'bg-[#004ac6] text-white shadow-sm shadow-[#004ac6]/25 font-semibold'
+                    : 'text-[#434655] hover:bg-white hover:text-[#191c1e]'
                 }`}
               >
+                {isActive && (
+                  <span className="absolute -left-4 top-1/2 -translate-y-1/2 h-5 w-1 rounded-r-full bg-[#004ac6]" />
+                )}
                 <div className="flex items-center gap-3">
                   <span className={`${isActive ? 'text-white' : 'text-[#505f76]'}`}>
                     {item.icon}
@@ -141,7 +152,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 {item.badge !== undefined && (
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-[#2563eb]/10 text-[#004ac6]'
+                      isActive ? 'bg-white/20 text-white' : 'bg-[#004ac6]/10 text-[#004ac6]'
                     }`}
                   >
                     {item.badge}
@@ -153,18 +164,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
 
         {/* Quick Theme & Palette button & Profile Card */}
-        <div className="p-4 border-t border-[#c3c6d7]/30 space-y-2">
+        <div className="p-4 border-t border-[#c3c6d7]/30 space-y-2.5">
           {onOpenThemeModal && (
             <button
               onClick={onOpenThemeModal}
-              className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl bg-white/70 hover:bg-white text-slate-700 hover:text-indigo-600 text-xs font-semibold border border-slate-200/80 transition-all shadow-2xs group"
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white hover:bg-white text-slate-700 hover:text-[#004ac6] text-xs font-semibold border border-[#c3c6d7]/40 transition-all shadow-xs hover:shadow-sm group cursor-pointer"
               title="Personalizar Tabela de Cores do Visual"
             >
               <div className="flex items-center gap-2">
-                <Palette className="w-4 h-4 text-indigo-600 group-hover:rotate-12 transition-transform" />
+                <Palette className="w-4 h-4 text-[#004ac6] group-hover:rotate-12 transition-transform" />
                 <span>Tabela de Cores</span>
               </div>
-              <span className="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-1.5 py-0.5 rounded-md">
+              <span className="text-[10px] bg-[#dbe1ff] text-[#004ac6] font-bold px-1.5 py-0.5 rounded-md">
                 Visual
               </span>
             </button>
@@ -173,17 +184,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="flex items-center gap-2">
             <div
               id="user-profile-card"
-              className="flex items-center gap-3 bg-[#e0e3e5]/60 hover:bg-[#e0e3e5] p-3 rounded-xl transition-colors cursor-pointer group flex-1 overflow-hidden"
+              className="flex items-center gap-3 bg-white hover:bg-white p-2.5 rounded-xl border border-[#c3c6d7]/40 shadow-xs hover:shadow-sm transition-all cursor-pointer group flex-1 overflow-hidden"
               onClick={() => handleNavClick('evolucao')}
             >
-              <div className="w-10 h-10 rounded-full bg-[#004ac6] text-white flex items-center justify-center shrink-0 shadow-xs">
-                <User className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-full bg-[#004ac6] text-white flex items-center justify-center shrink-0 shadow-xs font-bold text-sm">
+                {profile.name?.trim()?.[0]?.toUpperCase() || <User className="w-4 h-4" />}
               </div>
               <div className="overflow-hidden flex-1">
                 <p className="text-sm font-semibold text-[#191c1e] truncate group-hover:text-[#004ac6] transition-colors">
                   {profile.name}
                 </p>
-                <p className="text-xs text-[#434655] truncate">
+                <p className="text-xs text-[#737686] truncate">
                   {profile.studyContext || profile.grade || 'Estudos'}
                 </p>
               </div>

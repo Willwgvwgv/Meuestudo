@@ -36,24 +36,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="w-full max-w-6xl mx-auto py-8 md:py-12 flex flex-col gap-10">
       {/* Hero / Greeting Section */}
-      <section className="flex flex-col lg:flex-row gap-8 items-start justify-between">
-        <div className="flex flex-col gap-4 max-w-2xl">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#191c1e] tracking-tight">
+      <section className="relative flex flex-col lg:flex-row gap-8 items-start justify-between overflow-hidden rounded-3xl bg-gradient-mesh p-6 sm:p-8 md:p-10 text-white shadow-[var(--shadow-elevated)]">
+        <div className="flex flex-col gap-4 max-w-2xl relative z-10">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
             Bom dia, {profile.name}!
           </h1>
-          <p className="text-lg md:text-xl text-[#434655] font-normal leading-relaxed">
+          <p className="text-lg md:text-xl text-white/85 font-normal leading-relaxed">
             Pronto para evoluir hoje? Você tem{' '}
-            <strong className="text-[#004ac6] font-bold">
+            <strong className="text-white font-bold">
               {countToday} tarefa{countToday !== 1 ? 's' : ''}
             </strong>{' '}
             programada{countToday !== 1 ? 's' : ''} para manter o ritmo.
           </p>
 
-          <div className="mt-2 inline-flex items-center gap-3 bg-[#2563eb]/10 px-4 py-2.5 rounded-full w-fit border border-[#2563eb]/20">
-            <TrendingUp className="w-5 h-5 text-[#004ac6]" />
-            <span className="text-sm font-medium text-[#191c1e]">
-              Seu desempenho geral subiu <span className="text-[#004ac6] font-bold">8%</span> este
-              mês.
+          <div className="mt-2 inline-flex items-center gap-3 bg-white/10 px-4 py-2.5 rounded-full w-fit border border-white/20 backdrop-blur-sm">
+            <TrendingUp className="w-5 h-5 text-white" />
+            <span className="text-sm font-medium text-white">
+              Seu desempenho geral subiu <span className="font-bold">8%</span> este mês.
             </span>
           </div>
         </div>
@@ -61,7 +60,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Primary CTA / Next Recommendation */}
         <div
           id="recommended-study-card"
-          className="bg-white border border-[#c3c6d7]/30 shadow-sm hover:shadow-md transition-all p-6 rounded-2xl w-full lg:w-96 flex flex-col gap-4 relative overflow-hidden group"
+          className="relative z-10 bg-white shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elevated)] transition-all p-6 rounded-2xl w-full lg:w-96 flex flex-col gap-4 overflow-hidden group"
         >
           <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-[#2563eb]/10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500" />
 

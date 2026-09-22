@@ -74,7 +74,11 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
   const [tagInput, setTagInput] = useState<string>('');
 
   // UI Panels & Layout states
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  // Starts open on desktop (matches the previous side-by-side layout) and closed on
+  // mobile/tablet, where the drawer now overlays the editor instead of squeezing it.
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true,
+  );
   const [searchDocQuery, setSearchDocQuery] = useState<string>('');
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>('all');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState<boolean>(false);
@@ -620,12 +624,23 @@ export const NotebookView: React.FC<NotebookViewProps> = ({
       </div>
 
       {/* Main Workspace Area (Sidebar + Editor) */}
-      <div className="flex-1 flex gap-3 overflow-hidden">
+      <div className="relative flex-1 flex gap-3 overflow-hidden">
+        {/* Backdrop for the file drawer on mobile/tablet, where it overlays the editor
+            instead of squeezing it (a fixed w-72 sidebar left barely any room for the
+            editor on narrow screens) */}
+        {sidebarOpen && (
+          <div
+            className="absolute inset-0 z-20 bg-black/30 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
         {/* Left Files/Notes Drawer */}
         {sidebarOpen && (
           <div
             id="notebook-file-explorer"
-            className="w-72 md:w-80 bg-white border border-[#c3c6d7]/40 rounded-2xl flex flex-col shrink-0 overflow-hidden shadow-xs"
+            className="absolute inset-y-0 left-0 z-30 w-72 max-w-[85vw] lg:static lg:z-auto lg:w-72 xl:w-80 lg:max-w-none bg-white border border-[#c3c6d7]/40 rounded-r-2xl lg:rounded-2xl flex flex-col shrink-0 overflow-hidden shadow-2xl lg:shadow-xs"
           >
             {/* Explorer Header & Search */}
             <div className="p-3 border-b border-slate-100 space-y-2">

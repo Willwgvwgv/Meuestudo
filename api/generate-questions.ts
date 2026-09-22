@@ -1,5 +1,5 @@
-import { generateQuestions } from './_lib/gemini';
-import type { ApiRequest, ApiResponse } from './_lib/types';
+import { generateQuestions } from './_lib/gemini.js';
+import type { ApiRequest, ApiResponse } from './_lib/types.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {

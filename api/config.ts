@@ -1,5 +1,5 @@
-import { getAppConfig } from './_lib/config';
-import type { ApiRequest, ApiResponse } from './_lib/types';
+import { getAppConfig } from './_lib/config.js';
+import type { ApiRequest, ApiResponse } from './_lib/types.js';
 
 export default function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'GET') {

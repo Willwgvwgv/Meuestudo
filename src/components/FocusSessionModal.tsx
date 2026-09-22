@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  X, 
-  CheckCircle2, 
-  Flame, 
-  Volume2, 
-  VolumeX, 
+import {
+  Play,
+  Pause,
+  RotateCcw,
+  X,
+  CheckCircle2,
+  Flame,
+  Volume2,
+  VolumeX,
   Sparkles,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -48,7 +48,7 @@ export const FocusSessionModal: React.FC<FocusSessionModalProps> = ({
 
     if (isActive && secondsRemaining > 0) {
       interval = setInterval(() => {
-        setSecondsRemaining(prev => prev - 1);
+        setSecondsRemaining((prev) => prev - 1);
       }, 1000);
     } else if (secondsRemaining === 0 && isActive) {
       setIsActive(false);
@@ -120,9 +120,7 @@ export const FocusSessionModal: React.FC<FocusSessionModalProps> = ({
           <span className="text-xs font-bold text-[#004ac6] uppercase tracking-wider block mb-1">
             {initialSubject}
           </span>
-          <h2 className="text-2xl font-extrabold text-[#191c1e] tracking-tight">
-            {initialTopic}
-          </h2>
+          <h2 className="text-2xl font-extrabold text-[#191c1e] tracking-tight">{initialTopic}</h2>
         </div>
 
         {sessionCompleted ? (
@@ -184,7 +182,7 @@ export const FocusSessionModal: React.FC<FocusSessionModalProps> = ({
             {/* Duration presets (if not running) */}
             {!isActive && secondsRemaining === durationMinutes * 60 && (
               <div className="flex items-center gap-2">
-                {[15, 25, 45, 60].map(mins => (
+                {[15, 25, 45, 60].map((mins) => (
                   <button
                     key={mins}
                     onClick={() => {
@@ -217,7 +215,9 @@ export const FocusSessionModal: React.FC<FocusSessionModalProps> = ({
                 ) : (
                   <>
                     <Play className="w-5 h-5 fill-current" />
-                    <span>{secondsRemaining < durationMinutes * 60 ? 'Continuar' : 'Começar Foco'}</span>
+                    <span>
+                      {secondsRemaining < durationMinutes * 60 ? 'Continuar' : 'Começar Foco'}
+                    </span>
                   </>
                 )}
               </button>

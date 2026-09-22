@@ -1,15 +1,15 @@
 import React from 'react';
-import { 
-  X, 
-  Play, 
-  Sparkles, 
-  AlertTriangle, 
-  CheckCircle2, 
-  HelpCircle, 
-  BookOpen, 
-  ArrowUp, 
-  ArrowDown, 
-  Minus 
+import {
+  X,
+  Play,
+  Sparkles,
+  AlertTriangle,
+  CheckCircle2,
+  HelpCircle,
+  BookOpen,
+  ArrowUp,
+  ArrowDown,
+  Minus,
 } from 'lucide-react';
 import { Subject } from '../types';
 
@@ -47,9 +47,7 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
             <h2 className="text-3xl font-extrabold text-[#191c1e] tracking-tight">
               {subject.name}
             </h2>
-            <p className="text-sm text-[#434655] mt-1 leading-relaxed">
-              {subject.description}
-            </p>
+            <p className="text-sm text-[#434655] mt-1 leading-relaxed">{subject.description}</p>
           </div>
 
           <button
@@ -63,8 +61,12 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
         {/* Overview Stats */}
         <div className="grid grid-cols-3 gap-3">
           <div className="p-3.5 bg-[#f7f9fb] rounded-2xl border border-[#eceef0]">
-            <span className="text-[11px] font-bold text-[#737686] uppercase block">Domínio Geral</span>
-            <span className="text-2xl font-extrabold text-[#004ac6]">{subject.masteryPercentage}%</span>
+            <span className="text-[11px] font-bold text-[#737686] uppercase block">
+              Domínio Geral
+            </span>
+            <span className="text-2xl font-extrabold text-[#004ac6]">
+              {subject.masteryPercentage}%
+            </span>
           </div>
 
           <div className="p-3.5 bg-[#f7f9fb] rounded-2xl border border-[#eceef0]">
@@ -73,7 +75,9 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
           </div>
 
           <div className="p-3.5 bg-[#f7f9fb] rounded-2xl border border-[#eceef0]">
-            <span className="text-[11px] font-bold text-[#737686] uppercase block">Questões Feitas</span>
+            <span className="text-[11px] font-bold text-[#737686] uppercase block">
+              Questões Feitas
+            </span>
             <span className="text-2xl font-extrabold text-[#191c1e]">{subject.questionsCount}</span>
           </div>
         </div>
@@ -96,15 +100,13 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                     isDanger
                       ? 'bg-[#ffdad6]/30 border-[#ba1a1a]/30'
                       : isAlert
-                      ? 'bg-amber-500/5 border-amber-500/20'
-                      : 'bg-[#f7f9fb] border-[#eceef0]'
+                        ? 'bg-amber-500/5 border-amber-500/20'
+                        : 'bg-[#f7f9fb] border-[#eceef0]'
                   }`}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-bold text-[#191c1e]">
-                        {topic.name}
-                      </h4>
+                      <h4 className="text-sm font-bold text-[#191c1e]">{topic.name}</h4>
                       {isDanger && (
                         <span className="px-2 py-0.5 bg-[#ba1a1a] text-white text-[10px] font-bold rounded-full">
                           Crítico
@@ -125,7 +127,15 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                   <div className="flex items-center gap-4 shrink-0">
                     <div className="w-24 flex flex-col gap-1">
                       <div className="flex justify-between text-xs font-bold">
-                        <span className={isDanger ? 'text-[#ba1a1a]' : isAlert ? 'text-amber-800' : 'text-[#004ac6]'}>
+                        <span
+                          className={
+                            isDanger
+                              ? 'text-[#ba1a1a]'
+                              : isAlert
+                                ? 'text-amber-800'
+                                : 'text-[#004ac6]'
+                          }
+                        >
                           {topic.masteryPercentage}%
                         </span>
                       </div>

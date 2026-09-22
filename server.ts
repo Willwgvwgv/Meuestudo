@@ -41,7 +41,8 @@ app.post('/api/generate-questions', async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({
-        error: 'Chave GEMINI_API_KEY não configurada no servidor. Configure nos Secrets do AI Studio.',
+        error:
+          'Chave GEMINI_API_KEY não configurada no servidor. Configure nos Secrets do AI Studio.',
       });
     }
 
@@ -101,7 +102,13 @@ Instruções pedagógicas importantes:
                 description: 'Fácil, Médio ou Difícil',
               },
             },
-            required: ['questionText', 'options', 'correctAnswerIndex', 'explanation', 'difficulty'],
+            required: [
+              'questionText',
+              'options',
+              'correctAnswerIndex',
+              'explanation',
+              'difficulty',
+            ],
           },
         },
         systemInstruction:
@@ -115,7 +122,8 @@ Instruções pedagógicas importantes:
       questions = JSON.parse(responseText);
     } catch {
       return res.status(502).json({
-        error: 'A IA gerou uma resposta em formato inválido. Por favor, tente novamente em instantes.',
+        error:
+          'A IA gerou uma resposta em formato inválido. Por favor, tente novamente em instantes.',
       });
     }
 
@@ -135,13 +143,23 @@ Instruções pedagógicas importantes:
     console.error('Erro ao gerar questões com Gemini:', err);
     let message = 'Não foi possível gerar as questões no momento. Tente novamente.';
     const rawMsg = err?.message || String(err);
-    
-    if (rawMsg.includes('429') || rawMsg.toLowerCase().includes('quota') || rawMsg.toLowerCase().includes('resource has been exhausted')) {
-      message = 'O limite de requisições temporário da IA foi atingido. Aguarde alguns segundos e tente novamente.';
+
+    if (
+      rawMsg.includes('429') ||
+      rawMsg.toLowerCase().includes('quota') ||
+      rawMsg.toLowerCase().includes('resource has been exhausted')
+    ) {
+      message =
+        'O limite de requisições temporário da IA foi atingido. Aguarde alguns segundos e tente novamente.';
     } else if (rawMsg.includes('403') || rawMsg.toLowerCase().includes('api key')) {
-      message = 'A chave da API Gemini não possui autorização ou é inválida. Verifique os Secrets do projeto.';
-    } else if (rawMsg.toLowerCase().includes('safety') || rawMsg.toLowerCase().includes('blocked')) {
-      message = 'O tema solicitado acionou os filtros de segurança do modelo. Tente reescrever o tópico.';
+      message =
+        'A chave da API Gemini não possui autorização ou é inválida. Verifique os Secrets do projeto.';
+    } else if (
+      rawMsg.toLowerCase().includes('safety') ||
+      rawMsg.toLowerCase().includes('blocked')
+    ) {
+      message =
+        'O tema solicitado acionou os filtros de segurança do modelo. Tente reescrever o tópico.';
     }
 
     return res.status(500).json({

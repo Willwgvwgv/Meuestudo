@@ -1,14 +1,20 @@
 import { createClient, SupabaseClient, User, Session } from '@supabase/supabase-js';
-import { 
-  StudentProfile, 
-  Subject, 
-  SubjectTopic, 
-  Task, 
-  CalendarEvent, 
-  Question, 
-  LibraryItem 
+import {
+  StudentProfile,
+  Subject,
+  SubjectTopic,
+  Task,
+  CalendarEvent,
+  Question,
+  LibraryItem,
 } from '../types';
-import { INITIAL_SUBJECTS, INITIAL_TASKS, INITIAL_CALENDAR_EVENTS, INITIAL_QUESTIONS, INITIAL_LIBRARY } from '../data/initialData';
+import {
+  INITIAL_SUBJECTS,
+  INITIAL_TASKS,
+  INITIAL_CALENDAR_EVENTS,
+  INITIAL_QUESTIONS,
+  INITIAL_LIBRARY,
+} from '../data/initialData';
 
 // Storage keys for optional local overrides / fallbacks
 const STORAGE_URL_KEY = 'meu_estudo_supabase_url';
@@ -30,12 +36,12 @@ export const getSupabaseConfig = () => {
   let envAnon = '';
 
   try {
-    envUrl = 
+    envUrl =
       (typeof process !== 'undefined' && process.env?.SUPABASE_URL) ||
       (import.meta as any).env?.SUPABASE_URL ||
       (import.meta as any).env?.VITE_SUPABASE_URL ||
       '';
-    envAnon = 
+    envAnon =
       (typeof process !== 'undefined' && process.env?.SUPABASE_ANON_KEY) ||
       (import.meta as any).env?.SUPABASE_ANON_KEY ||
       (import.meta as any).env?.VITE_SUPABASE_ANON_KEY ||
@@ -46,7 +52,8 @@ export const getSupabaseConfig = () => {
 
   // 2. Check localStorage
   const localUrl = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_URL_KEY) || '' : '';
-  const localAnon = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_ANON_KEY) || '' : '';
+  const localAnon =
+    typeof window !== 'undefined' ? localStorage.getItem(STORAGE_ANON_KEY) || '' : '';
 
   const finalUrl = (envUrl || localUrl || '').trim();
   const finalAnon = (envAnon || localAnon || '').trim();
@@ -124,10 +131,10 @@ export const isSupabaseConfigured = (): boolean => {
    ========================================================================= */
 
 export const signUpWithEmail = async (
-  email: string, 
-  password: string, 
-  name: string, 
-  studyContext: string
+  email: string,
+  password: string,
+  name: string,
+  studyContext: string,
 ) => {
   const client = getSupabaseClient();
   if (!client) throw new Error('Supabase não configurado.');
@@ -219,7 +226,11 @@ export const getCurrentSession = async (): Promise<Session | null> => {
    ========================================================================= */
 
 // 1. Profile
-export const fetchProfile = async (userId: string, defaultName?: string, defaultContext?: string): Promise<StudentProfile> => {
+export const fetchProfile = async (
+  userId: string,
+  defaultName?: string,
+  defaultContext?: string,
+): Promise<StudentProfile> => {
   const client = getSupabaseClient();
   if (!client) {
     return {
@@ -240,11 +251,7 @@ export const fetchProfile = async (userId: string, defaultName?: string, default
     };
   }
 
-  const { data, error } = await client
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single();
+  const { data, error } = await client.from('profiles').select('*').eq('id', userId).single();
 
   if (error || !data) {
     // If not found, insert one
@@ -355,7 +362,10 @@ export const fetchSubjects = async (userId: string): Promise<Subject[]> => {
   });
 };
 
-export const createSubject = async (userId: string, subject: Omit<Subject, 'id'>): Promise<Subject> => {
+export const createSubject = async (
+  userId: string,
+  subject: Omit<Subject, 'id'>,
+): Promise<Subject> => {
   const client = getSupabaseClient();
   if (!client) throw new Error('Supabase indisponível');
 
@@ -377,7 +387,7 @@ export const createSubject = async (userId: string, subject: Omit<Subject, 'id'>
   // Insert topics if any
   let createdTopics: SubjectTopic[] = [];
   if (subject.topics && subject.topics.length > 0) {
-    const topicInserts = subject.topics.map(t => ({
+    const topicInserts = subject.topics.map((t) => ({
       subject_id: data.id,
       user_id: userId,
       name: t.name,
@@ -386,10 +396,7 @@ export const createSubject = async (userId: string, subject: Omit<Subject, 'id'>
       status: t.status || 'good',
     }));
 
-    const { data: tData } = await client
-      .from('subject_topics')
-      .insert(topicInserts)
-      .select();
+    const { data: tData } = await client.from('subject_topics').insert(topicInserts).select();
 
     if (tData) {
       createdTopics = tData.map((t: any) => ({
@@ -517,10 +524,14 @@ export const fetchCalendarEvents = async (userId: string): Promise<CalendarEvent
   return (data || []).map((e: any) => {
     const dayNumber = e.date ? parseInt(e.date.split('-')[2] || '1', 10) : 1;
     const type = (e.type as 'exam' | 'study' | 'delivery' | 'simulation') || 'study';
-    const typeLabel = 
-      type === 'exam' ? 'Prova' :
-      type === 'study' ? 'Estudo' :
-      type === 'simulation' ? 'Simulado' : 'Entrega';
+    const typeLabel =
+      type === 'exam'
+        ? 'Prova'
+        : type === 'study'
+          ? 'Estudo'
+          : type === 'simulation'
+            ? 'Simulado'
+            : 'Entrega';
 
     return {
       id: e.id,
@@ -539,7 +550,10 @@ export const fetchCalendarEvents = async (userId: string): Promise<CalendarEvent
   });
 };
 
-export const createCalendarEvent = async (userId: string, event: Omit<CalendarEvent, 'id'>): Promise<CalendarEvent> => {
+export const createCalendarEvent = async (
+  userId: string,
+  event: Omit<CalendarEvent, 'id'>,
+): Promise<CalendarEvent> => {
   const client = getSupabaseClient();
   if (!client) throw new Error('Supabase indisponível');
 
@@ -598,7 +612,7 @@ export const fetchQuestions = async (userId: string): Promise<Question[]> => {
 };
 
 export const insertQuestions = async (
-  userId: string, 
+  userId: string,
   questions: Array<{
     subject: string;
     topic: string;
@@ -608,12 +622,12 @@ export const insertQuestions = async (
     explanation: string;
     difficulty: 'Fácil' | 'Médio' | 'Difícil';
     generatedByAi?: boolean;
-  }>
+  }>,
 ): Promise<Question[]> => {
   const client = getSupabaseClient();
   if (!client) throw new Error('Supabase indisponível');
 
-  const payload = questions.map(q => ({
+  const payload = questions.map((q) => ({
     user_id: userId,
     subject: q.subject,
     topic: q.topic,
@@ -625,10 +639,7 @@ export const insertQuestions = async (
     generated_by_ai: Boolean(q.generatedByAi),
   }));
 
-  const { data, error } = await client
-    .from('questions')
-    .insert(payload)
-    .select();
+  const { data, error } = await client.from('questions').insert(payload).select();
 
   if (error) throw error;
 
@@ -646,10 +657,10 @@ export const insertQuestions = async (
 };
 
 export const recordQuestionAttempt = async (
-  userId: string, 
-  questionId: string, 
-  selectedIndex: number, 
-  isCorrect: boolean
+  userId: string,
+  questionId: string,
+  selectedIndex: number,
+  isCorrect: boolean,
 ) => {
   const client = getSupabaseClient();
   if (!client) return;
@@ -680,7 +691,14 @@ export const fetchLibraryItems = async (userId: string): Promise<LibraryItem[]> 
     title: item.title,
     subject: item.subject || 'Geral',
     type: (item.type as 'pdf' | 'video' | 'notes' | 'summary') || 'pdf',
-    typeLabel: item.type === 'video' ? 'Vídeo' : item.type === 'notes' ? 'Notas' : item.type === 'summary' ? 'Resumo' : 'PDF',
+    typeLabel:
+      item.type === 'video'
+        ? 'Vídeo'
+        : item.type === 'notes'
+          ? 'Notas'
+          : item.type === 'summary'
+            ? 'Resumo'
+            : 'PDF',
     sizeOrDuration: '2.4 MB',
     pagesOrDurationText: 'Material de Apoio',
     updatedAt: new Date(item.created_at || Date.now()).toLocaleDateString('pt-BR'),
@@ -689,7 +707,10 @@ export const fetchLibraryItems = async (userId: string): Promise<LibraryItem[]> 
   }));
 };
 
-export const createLibraryItem = async (userId: string, item: Omit<LibraryItem, 'id'>): Promise<LibraryItem> => {
+export const createLibraryItem = async (
+  userId: string,
+  item: Omit<LibraryItem, 'id'>,
+): Promise<LibraryItem> => {
   const client = getSupabaseClient();
   if (!client) throw new Error('Supabase indisponível');
 
@@ -737,9 +758,18 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
     }
 
     // Seed 2 default subjects adapted to user context
-    const isMedOrBio = studyContext.toLowerCase().includes('med') || studyContext.toLowerCase().includes('bio') || studyContext.toLowerCase().includes('psico');
-    const isLawOrConcurso = studyContext.toLowerCase().includes('direito') || studyContext.toLowerCase().includes('concurso') || studyContext.toLowerCase().includes('oab');
-    const isTech = studyContext.toLowerCase().includes('ti') || studyContext.toLowerCase().includes('comp') || studyContext.toLowerCase().includes('prog');
+    const isMedOrBio =
+      studyContext.toLowerCase().includes('med') ||
+      studyContext.toLowerCase().includes('bio') ||
+      studyContext.toLowerCase().includes('psico');
+    const isLawOrConcurso =
+      studyContext.toLowerCase().includes('direito') ||
+      studyContext.toLowerCase().includes('concurso') ||
+      studyContext.toLowerCase().includes('oab');
+    const isTech =
+      studyContext.toLowerCase().includes('ti') ||
+      studyContext.toLowerCase().includes('comp') ||
+      studyContext.toLowerCase().includes('prog');
 
     let starterSubjects = INITIAL_SUBJECTS.slice(0, 3);
     if (isLawOrConcurso) {
@@ -749,8 +779,20 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
           name: 'Direito Constitucional',
           description: 'Direitos fundamentais, organização do Estado e poderes.',
           topics: [
-            { id: 'dc-1', name: 'Direitos e Garantias Fundamentais', masteryPercentage: 70, questionsDone: 30, status: 'good' },
-            { id: 'dc-2', name: 'Controle de Constitucionalidade', masteryPercentage: 55, questionsDone: 20, status: 'alert' },
+            {
+              id: 'dc-1',
+              name: 'Direitos e Garantias Fundamentais',
+              masteryPercentage: 70,
+              questionsDone: 30,
+              status: 'good',
+            },
+            {
+              id: 'dc-2',
+              name: 'Controle de Constitucionalidade',
+              masteryPercentage: 55,
+              questionsDone: 20,
+              status: 'alert',
+            },
           ],
         },
         {
@@ -758,8 +800,20 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
           name: 'Direito Administrativo',
           description: 'Regime jurídico, atos administrativos e licitações.',
           topics: [
-            { id: 'da-1', name: 'Princípios da Administração Pública', masteryPercentage: 80, questionsDone: 25, status: 'good' },
-            { id: 'da-2', name: 'Atos e Poderes Administrativos', masteryPercentage: 60, questionsDone: 15, status: 'alert' },
+            {
+              id: 'da-1',
+              name: 'Princípios da Administração Pública',
+              masteryPercentage: 80,
+              questionsDone: 25,
+              status: 'good',
+            },
+            {
+              id: 'da-2',
+              name: 'Atos e Poderes Administrativos',
+              masteryPercentage: 60,
+              questionsDone: 15,
+              status: 'alert',
+            },
           ],
         },
       ];
@@ -770,8 +824,20 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
           name: 'Fisiologia Humana',
           description: 'Sistemas cardiovascular, renal e endócrino.',
           topics: [
-            { id: 'fis-1', name: 'Potencial de Ação e Sinapses', masteryPercentage: 75, questionsDone: 20, status: 'good' },
-            { id: 'fis-2', name: 'Hemodinâmica e Ciclo Cardíaco', masteryPercentage: 65, questionsDone: 18, status: 'alert' },
+            {
+              id: 'fis-1',
+              name: 'Potencial de Ação e Sinapses',
+              masteryPercentage: 75,
+              questionsDone: 20,
+              status: 'good',
+            },
+            {
+              id: 'fis-2',
+              name: 'Hemodinâmica e Ciclo Cardíaco',
+              masteryPercentage: 65,
+              questionsDone: 18,
+              status: 'alert',
+            },
           ],
         },
         {
@@ -779,7 +845,13 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
           name: 'Farmacologia Básica',
           description: 'Farmacocinética, farmacodinâmica e receptores.',
           topics: [
-            { id: 'far-1', name: 'Mecanismos de Ação de Fármacos', masteryPercentage: 70, questionsDone: 15, status: 'good' },
+            {
+              id: 'far-1',
+              name: 'Mecanismos de Ação de Fármacos',
+              masteryPercentage: 70,
+              questionsDone: 15,
+              status: 'good',
+            },
           ],
         },
       ];
@@ -843,7 +915,8 @@ export const seedInitialUserData = async (userId: string, name: string, studyCon
           'Memorização de véspera sem revisão posterior',
         ],
         correctAnswerIndex: 0,
-        explanation: 'A prática de recuperação ativa combinada com espaçamento temporal é cientificamente comprovada como o método mais eficaz para consolidação da memória de longo prazo.',
+        explanation:
+          'A prática de recuperação ativa combinada com espaçamento temporal é cientificamente comprovada como o método mais eficaz para consolidação da memória de longo prazo.',
         difficulty: 'Fácil',
         generatedByAi: false,
       },

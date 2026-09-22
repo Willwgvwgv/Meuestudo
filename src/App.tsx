@@ -3,40 +3,40 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Session } from '@supabase/supabase-js';
-import { 
-  TabType, 
-  StudentProfile, 
-  Task, 
-  Subject, 
-  CalendarEvent, 
-  Question, 
-  LibraryItem, 
-  NotificationItem, 
+import {
+  TabType,
+  StudentProfile,
+  Task,
+  Subject,
+  CalendarEvent,
+  Question,
+  LibraryItem,
+  NotificationItem,
   NoteDocument,
-  ThemeConfig 
+  ThemeConfig,
 } from './types';
-import { 
-  INITIAL_STUDENT_PROFILE, 
-  INITIAL_SUBJECTS, 
-  INITIAL_TASKS, 
-  INITIAL_CALENDAR_EVENTS, 
-  INITIAL_QUESTIONS, 
+import {
+  INITIAL_STUDENT_PROFILE,
+  INITIAL_SUBJECTS,
+  INITIAL_TASKS,
+  INITIAL_CALENDAR_EVENTS,
+  INITIAL_QUESTIONS,
   INITIAL_LIBRARY,
   INITIAL_NOTIFICATIONS,
-  INITIAL_DOCUMENTS 
+  INITIAL_DOCUMENTS,
 } from './data/initialData';
-import { 
-  getSupabaseClient, 
-  initSupabaseClientFromBackend, 
-  fetchProfile, 
+import {
+  getSupabaseClient,
+  initSupabaseClientFromBackend,
+  fetchProfile,
   updateProfile,
   fetchSubjects,
   createSubject,
-  fetchTasks, 
-  createTask, 
-  updateTask, 
+  fetchTasks,
+  createTask,
+  updateTask,
   deleteTask,
   fetchCalendarEvents,
   createCalendarEvent,
@@ -46,24 +46,42 @@ import {
   recordQuestionAttempt,
   fetchLibraryItems,
   seedInitialUserData,
-  signOut
+  signOut,
 } from './utils/supabase';
 import { AuthView } from './components/AuthView';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
-import { DashboardView } from './components/DashboardView';
-import { SubjectsView } from './components/SubjectsView';
-import { TasksView } from './components/TasksView';
-import { CalendarView } from './components/CalendarView';
-import { QuestionsView } from './components/QuestionsView';
-import { LibraryView } from './components/LibraryView';
-import { EvolutionView } from './components/EvolutionView';
-import { NotebookView } from './components/NotebookView';
 import { FocusSessionModal } from './components/FocusSessionModal';
 import { NewTaskModal } from './components/NewTaskModal';
 import { SubjectDetailModal } from './components/SubjectDetailModal';
 import { SettingsModal } from './components/SettingsModal';
 import { ThemeModal } from './components/ThemeModal';
+
+// Code-split the tab views: each is only fetched when the user navigates to it.
+const DashboardView = lazy(() =>
+  import('./components/DashboardView').then((m) => ({ default: m.DashboardView })),
+);
+const SubjectsView = lazy(() =>
+  import('./components/SubjectsView').then((m) => ({ default: m.SubjectsView })),
+);
+const TasksView = lazy(() =>
+  import('./components/TasksView').then((m) => ({ default: m.TasksView })),
+);
+const CalendarView = lazy(() =>
+  import('./components/CalendarView').then((m) => ({ default: m.CalendarView })),
+);
+const QuestionsView = lazy(() =>
+  import('./components/QuestionsView').then((m) => ({ default: m.QuestionsView })),
+);
+const LibraryView = lazy(() =>
+  import('./components/LibraryView').then((m) => ({ default: m.LibraryView })),
+);
+const EvolutionView = lazy(() =>
+  import('./components/EvolutionView').then((m) => ({ default: m.EvolutionView })),
+);
+const NotebookView = lazy(() =>
+  import('./components/NotebookView').then((m) => ({ default: m.NotebookView })),
+);
 import { loadSavedTheme, saveThemeToStorage, applyThemeToDocument } from './utils/theme';
 import { Loader2, RefreshCw } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -139,7 +157,11 @@ export default function App() {
 
       // If user is brand new (0 subjects), seed starter subjects adapted to their studyContext
       if (userSubjects.length === 0) {
-        await seedInitialUserData(userId, userProfile.name, userProfile.studyContext || userProfile.grade || '');
+        await seedInitialUserData(
+          userId,
+          userProfile.name,
+          userProfile.studyContext || userProfile.grade || '',
+        );
         userSubjects = await fetchSubjects(userId);
       }
 
@@ -160,7 +182,6 @@ export default function App() {
       // 6. Fetch Library Items
       const userLibrary = await fetchLibraryItems(userId);
       setLibraryItems(userLibrary.length > 0 ? userLibrary : INITIAL_LIBRARY);
-
     } catch (err: any) {
       console.error('Erro ao carregar dados do Supabase:', err);
       setDataError(err?.message || 'Falha ao sincronizar dados com o Supabase.');
@@ -177,8 +198,8 @@ export default function App() {
       setAuthLoading(true);
       try {
         // Initialize client from backend /api/config or env
-        const client = await initSupabaseClientFromBackend() || getSupabaseClient();
-        
+        const client = (await initSupabaseClientFromBackend()) || getSupabaseClient();
+
         if (!client) {
           setAuthLoading(false);
           return;
@@ -235,43 +256,51 @@ export default function App() {
 
   // Document Handlers
   const handleSaveDocument = (updatedDoc: NoteDocument) => {
-    setDocuments(prev => {
-      const exists = prev.some(d => d.id === updatedDoc.id);
+    setDocuments((prev) => {
+      const exists = prev.some((d) => d.id === updatedDoc.id);
       let next: NoteDocument[];
       if (exists) {
-        next = prev.map(d => d.id === updatedDoc.id ? updatedDoc : d);
+        next = prev.map((d) => (d.id === updatedDoc.id ? updatedDoc : d));
       } else {
         next = [updatedDoc, ...prev];
       }
       try {
         localStorage.setItem('meu_estudo_documents', JSON.stringify(next));
-      } catch (e) {}
+      } catch {
+        // localStorage may be unavailable (e.g. private browsing quota); safe to ignore
+      }
       return next;
     });
   };
 
   const handleDeleteDocument = (docId: string) => {
-    setDocuments(prev => {
-      const next = prev.filter(d => d.id !== docId);
+    setDocuments((prev) => {
+      const next = prev.filter((d) => d.id !== docId);
       try {
         localStorage.setItem('meu_estudo_documents', JSON.stringify(next));
-      } catch (e) {}
+      } catch {
+        // localStorage may be unavailable (e.g. private browsing quota); safe to ignore
+      }
       return next;
     });
   };
 
-  const handleCreateDocument = (newDocData: Omit<NoteDocument, 'id' | 'createdAt' | 'updatedAt'>): NoteDocument => {
+  const handleCreateDocument = (
+    newDocData: Omit<NoteDocument, 'id' | 'createdAt' | 'updatedAt'>,
+  ): NoteDocument => {
     const newDoc: NoteDocument = {
       ...newDocData,
       id: `doc-${Date.now()}`,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    setDocuments(prev => {
+    setDocuments((prev) => {
       const next = [newDoc, ...prev];
       try {
         localStorage.setItem('meu_estudo_documents', JSON.stringify(next));
-      } catch (e) {}
+      } catch {
+        // localStorage may be unavailable (e.g. private browsing quota); safe to ignore
+      }
       return next;
     });
     return newDoc;
@@ -279,7 +308,7 @@ export default function App() {
 
   // Task Handlers with Supabase persistence
   const handleToggleTask = async (taskId: string) => {
-    const targetTask = tasks.find(t => t.id === taskId);
+    const targetTask = tasks.find((t) => t.id === taskId);
     if (!targetTask) return;
 
     const nextCompleted = !targetTask.completed;
@@ -293,8 +322,8 @@ export default function App() {
     }
 
     // Optimistic local update
-    setTasks(prev =>
-      prev.map(t => {
+    setTasks((prev) =>
+      prev.map((t) => {
         if (t.id === taskId) {
           return {
             ...t,
@@ -303,7 +332,7 @@ export default function App() {
           };
         }
         return t;
-      })
+      }),
     );
 
     // Persist to Supabase if logged in
@@ -327,14 +356,14 @@ export default function App() {
     };
 
     // Optimistic UI update
-    setTasks(prev => [newTask, ...prev]);
+    setTasks((prev) => [newTask, ...prev]);
 
     // Persist to Supabase if logged in
     if (session?.user) {
       try {
         const created = await createTask(session.user.id, { ...newTaskData, completed: false });
         // Replace tempId with real database id
-        setTasks(prev => prev.map(t => t.id === tempId ? created : t));
+        setTasks((prev) => prev.map((t) => (t.id === tempId ? created : t)));
       } catch (err) {
         console.error('Erro ao salvar tarefa no Supabase:', err);
       }
@@ -342,7 +371,7 @@ export default function App() {
   };
 
   const handleDeleteTask = async (taskId: string) => {
-    setTasks(prev => prev.filter(t => t.id !== taskId));
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
 
     if (session?.user) {
       try {
@@ -356,14 +385,14 @@ export default function App() {
   // Question Handlers with Supabase persistence
   const handleSaveQuestions = async (newQs: Question[]) => {
     // Optimistic update
-    setQuestions(prev => [...newQs, ...prev]);
+    setQuestions((prev) => [...newQs, ...prev]);
 
     if (session?.user) {
       try {
         const saved = await insertQuestions(session.user.id, newQs);
         // Update with true DB generated IDs
-        setQuestions(prev => {
-          const others = prev.filter(p => !newQs.some(n => n.id === p.id));
+        setQuestions((prev) => {
+          const others = prev.filter((p) => !newQs.some((n) => n.id === p.id));
           return [...saved, ...others];
         });
       } catch (err) {
@@ -372,7 +401,11 @@ export default function App() {
     }
   };
 
-  const handleRecordAttempt = async (questionId: string, selectedIndex: number, isCorrect: boolean) => {
+  const handleRecordAttempt = async (
+    questionId: string,
+    selectedIndex: number,
+    isCorrect: boolean,
+  ) => {
     if (session?.user) {
       try {
         await recordQuestionAttempt(session.user.id, questionId, selectedIndex, isCorrect);
@@ -391,7 +424,7 @@ export default function App() {
 
   const handleCompleteFocusSession = async (minutes: number) => {
     const updatedStreak = profile.streakDays + 1;
-    setProfile(prev => ({
+    setProfile((prev) => ({
       ...prev,
       streakDays: updatedStreak,
     }));
@@ -406,13 +439,11 @@ export default function App() {
   };
 
   const handleMarkNotificationAsRead = (notifId: string) => {
-    setNotifications(prev =>
-      prev.map(n => (n.id === notifId ? { ...n, read: true } : n))
-    );
+    setNotifications((prev) => prev.map((n) => (n.id === notifId ? { ...n, read: true } : n)));
   };
 
   const handleUpdateProfile = async (updated: Partial<StudentProfile>) => {
-    setProfile(prev => ({ ...prev, ...updated }));
+    setProfile((prev) => ({ ...prev, ...updated }));
 
     if (session?.user) {
       try {
@@ -447,7 +478,7 @@ export default function App() {
   // 2. Unauthenticated Screen -> Render AuthView
   if (!session) {
     return (
-      <AuthView 
+      <AuthView
         onAuthenticated={() => {
           const client = getSupabaseClient();
           if (client) {
@@ -458,7 +489,7 @@ export default function App() {
               }
             });
           }
-        }} 
+        }}
       />
     );
   }
@@ -473,7 +504,7 @@ export default function App() {
         profile={profile}
         isMobileOpen={isMobileMenuOpen}
         onCloseMobile={() => setIsMobileMenuOpen(false)}
-        pendingTasksCount={tasks.filter(t => !t.completed).length}
+        pendingTasksCount={tasks.filter((t) => !t.completed).length}
         onOpenThemeModal={() => setIsThemeModalOpen(true)}
         onSignOut={handleSignOut}
       />
@@ -512,74 +543,75 @@ export default function App() {
             </div>
           )}
 
-          {activeTab === 'inicio' && (
-            <DashboardView
-              profile={profile}
-              tasks={tasks}
-              onToggleTask={handleToggleTask}
-              onNavigate={handleNavigate}
-              onStartFocus={handleStartFocus}
-            />
-          )}
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center py-24">
+                <Loader2 className="w-6 h-6 text-[#004ac6] animate-spin" />
+              </div>
+            }
+          >
+            {activeTab === 'inicio' && (
+              <DashboardView
+                profile={profile}
+                tasks={tasks}
+                onToggleTask={handleToggleTask}
+                onNavigate={handleNavigate}
+                onStartFocus={handleStartFocus}
+              />
+            )}
 
-          {activeTab === 'materias' && (
-            <SubjectsView
-              subjects={subjects}
-              profile={profile}
-              onSelectSubject={(subj) => setSelectedSubjectDetail(subj)}
-              onStartFocus={handleStartFocus}
-            />
-          )}
+            {activeTab === 'materias' && (
+              <SubjectsView
+                subjects={subjects}
+                profile={profile}
+                onSelectSubject={(subj) => setSelectedSubjectDetail(subj)}
+                onStartFocus={handleStartFocus}
+              />
+            )}
 
-          {activeTab === 'tarefas' && (
-            <TasksView
-              tasks={tasks}
-              profile={profile}
-              onToggleTask={handleToggleTask}
-              onOpenNewTaskModal={() => setIsNewTaskModalOpen(true)}
-              onDeleteTask={handleDeleteTask}
-            />
-          )}
+            {activeTab === 'tarefas' && (
+              <TasksView
+                tasks={tasks}
+                profile={profile}
+                onToggleTask={handleToggleTask}
+                onOpenNewTaskModal={() => setIsNewTaskModalOpen(true)}
+                onDeleteTask={handleDeleteTask}
+              />
+            )}
 
-          {activeTab === 'caderno' && (
-            <NotebookView
-              documents={documents}
-              onSaveDocument={handleSaveDocument}
-              onDeleteDocument={handleDeleteDocument}
-              onCreateDocument={handleCreateDocument}
-              subjects={subjects}
-            />
-          )}
+            {activeTab === 'caderno' && (
+              <NotebookView
+                documents={documents}
+                onSaveDocument={handleSaveDocument}
+                onDeleteDocument={handleDeleteDocument}
+                onCreateDocument={handleCreateDocument}
+                subjects={subjects}
+              />
+            )}
 
-          {activeTab === 'calendario' && (
-            <CalendarView
-              events={calendarEvents}
-              onStartFocus={handleStartFocus}
-            />
-          )}
+            {activeTab === 'calendario' && (
+              <CalendarView events={calendarEvents} onStartFocus={handleStartFocus} />
+            )}
 
-          {activeTab === 'questoes' && (
-            <QuestionsView
-              questions={questions}
-              subjects={subjects}
-              onSaveQuestions={handleSaveQuestions}
-              onRecordAttempt={handleRecordAttempt}
-            />
-          )}
+            {activeTab === 'questoes' && (
+              <QuestionsView
+                questions={questions}
+                subjects={subjects}
+                onSaveQuestions={handleSaveQuestions}
+                onRecordAttempt={handleRecordAttempt}
+              />
+            )}
 
-          {activeTab === 'biblioteca' && (
-            <LibraryView
-              items={libraryItems}
-            />
-          )}
+            {activeTab === 'biblioteca' && <LibraryView items={libraryItems} />}
 
-          {activeTab === 'evolucao' && (
-            <EvolutionView
-              subjects={subjects}
-              profile={profile}
-              onStartFocus={handleStartFocus}
-            />
-          )}
+            {activeTab === 'evolucao' && (
+              <EvolutionView
+                subjects={subjects}
+                profile={profile}
+                onStartFocus={handleStartFocus}
+              />
+            )}
+          </Suspense>
         </main>
       </div>
 

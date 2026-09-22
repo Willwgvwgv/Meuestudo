@@ -1,23 +1,24 @@
 import React from 'react';
-import { 
-  Calculator, 
-  BookOpen, 
-  FlaskConical, 
-  Landmark, 
-  Globe2, 
-  Languages, 
-  AlertTriangle, 
-  ArrowUp, 
-  ArrowDown, 
-  Minus, 
-  Play, 
+import {
+  Calculator,
+  BookOpen,
+  FlaskConical,
+  Landmark,
+  Globe2,
+  Languages,
+  AlertTriangle,
+  ArrowUp,
+  ArrowDown,
+  Minus,
+  Play,
   Sparkles,
   Layers,
-  CheckCircle2
+  CheckCircle2,
 } from 'lucide-react';
 import { Subject, StudentProfile } from '../types';
 
-export const LIBRARY_BANNER_URL = "https://lh3.googleusercontent.com/aida-public/AB6AXuAHs17ruTNNF8711wa7Faeh-LbMm_jb-tCR9-isG3-kK3oSaZvIyqv_qisMQwsJMdBjn3u0IsigP5NzqQUhghNue9io0GaeVwpd7Sl0CJGKHvx01ncbupFKYXGtjG4ujWUfh-ECzoZZpjVN0CcPPPqY2zoa8613wB6NoCSbCrQsVDwmXT6U2qIDzGZ9pTi3YfxgcPzq4vC2TOVH9gqBayXwhN53xUwy_JehjYPqMAx7lpdBfuaqwOaFXg";
+export const LIBRARY_BANNER_URL =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuAHs17ruTNNF8711wa7Faeh-LbMm_jb-tCR9-isG3-kK3oSaZvIyqv_qisMQwsJMdBjn3u0IsigP5NzqQUhghNue9io0GaeVwpd7Sl0CJGKHvx01ncbupFKYXGtjG4ujWUfh-ECzoZZpjVN0CcPPPqY2zoa8613wB6NoCSbCrQsVDwmXT6U2qIDzGZ9pTi3YfxgcPzq4vC2TOVH9gqBayXwhN53xUwy_JehjYPqMAx7lpdBfuaqwOaFXg';
 
 interface SubjectsViewProps {
   subjects: Subject[];
@@ -98,17 +99,18 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
             Visão Geral das Matérias
           </h1>
           <p className="text-base md:text-lg text-[#434655] leading-relaxed">
-            Acompanhe o desempenho do {profile.name} em cada disciplina. A consistência é a chave para a evolução contínua.
+            Acompanhe o desempenho do {profile.name} em cada disciplina. A consistência é a chave
+            para a evolução contínua.
           </p>
         </div>
 
         {/* Stats Pill / Box */}
-        <div 
+        <div
           id="general-mastery-stats-box"
           className="flex items-center gap-6 bg-[#eceef0] rounded-2xl p-5 sm:p-6 shadow-xs relative overflow-hidden group border border-[#c3c6d7]/30 shrink-0"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#004ac6]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-          
+
           <div className="flex flex-col gap-1 relative z-10">
             <span className="text-xs font-bold text-[#737686] uppercase tracking-wider">
               Média Geral
@@ -152,7 +154,9 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
 
               {/* Icon & Alert Header */}
               <div className="flex justify-between items-start mb-6 relative z-10">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 ${getSubjectIconBg(sub.id)}`}>
+                <div
+                  className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 ${getSubjectIconBg(sub.id)}`}
+                >
                   {getSubjectIcon(sub.icon)}
                 </div>
 
@@ -186,7 +190,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
                     <span className="text-2xl font-extrabold text-[#191c1e]">
                       {sub.masteryPercentage}%
                     </span>
-                    
+
                     {sub.masteryTrend > 0 ? (
                       <span className="text-xs font-bold text-[#004ac6] flex items-center">
                         <ArrowUp className="w-3 h-3 stroke-[3]" /> {sub.masteryTrend}%
@@ -205,7 +209,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
 
                 {/* Progress Bar */}
                 <div className="w-full h-2.5 bg-[#e0e3e5] rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className={`h-full ${getProgressBarColor(sub.id)} rounded-full relative transition-all duration-700`}
                     style={{ width: `${sub.masteryPercentage}%` }}
                   >
@@ -224,18 +228,18 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
       </div>
 
       {/* Decorative Image Banner for Visual Richness */}
-      <div 
+      <div
         id="motivational-study-banner"
         className="mt-4 relative w-full min-h-[260px] rounded-3xl overflow-hidden shadow-md flex items-center p-8 md:p-12 border border-[#c3c6d7]/30 group"
       >
         {/* Background photo */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-          style={{ 
-            backgroundImage: `url('${LIBRARY_BANNER_URL}')` 
+          style={{
+            backgroundImage: `url('${LIBRARY_BANNER_URL}')`,
           }}
         />
-        
+
         {/* Soft elegant gradient overlay matching design tokens */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#f7f9fb]/95 via-[#f7f9fb]/80 to-transparent mix-blend-normal" />
 
@@ -249,12 +253,15 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
           <h3 className="text-2xl md:text-3xl font-extrabold text-[#191c1e] tracking-tight">
             Continue assim, {profile.name}!
           </h3>
-          
+
           <p className="text-sm md:text-base text-[#434655] font-normal leading-relaxed">
-            Sua consistência em <strong className="font-semibold text-[#191c1e]">Ciências</strong> e <strong className="font-semibold text-[#191c1e]">Inglês</strong> está excelente e acima da meta estipulada. Vamos dar uma olhada nos pontos de atenção em <strong className="font-semibold text-[#ba1a1a]">Matemática</strong> hoje?
+            Sua consistência em <strong className="font-semibold text-[#191c1e]">Ciências</strong> e{' '}
+            <strong className="font-semibold text-[#191c1e]">Inglês</strong> está excelente e acima
+            da meta estipulada. Vamos dar uma olhada nos pontos de atenção em{' '}
+            <strong className="font-semibold text-[#ba1a1a]">Matemática</strong> hoje?
           </p>
 
-          <button 
+          <button
             id="banner-focus-session-btn"
             onClick={() => onStartFocus('Pontos de Atenção em Matemática', 'Matemática')}
             className="mt-2 px-6 py-3.5 bg-[#004ac6] hover:bg-[#2563eb] text-white rounded-xl font-medium text-sm w-fit transition-all shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer group-hover:translate-x-1"

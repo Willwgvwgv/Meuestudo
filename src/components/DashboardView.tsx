@@ -1,15 +1,15 @@
 import React from 'react';
-import { 
-  TrendingUp, 
-  BookOpen, 
-  ArrowRight, 
-  Clock, 
-  BookMarked, 
-  Calendar as CalendarIcon, 
-  Check, 
+import {
+  TrendingUp,
+  BookOpen,
+  ArrowRight,
+  Clock,
+  BookMarked,
+  Calendar as CalendarIcon,
+  Check,
   AlertTriangle,
   Sparkles,
-  Play
+  Play,
 } from 'lucide-react';
 import { StudentProfile, Task, TabType } from '../types';
 
@@ -28,7 +28,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigate,
   onStartFocus,
 }) => {
-  const pendingTodayTasks = tasks.filter(t => !t.completed && (t.dueDate === 'Hoje' || t.dueDate === 'Amanhã'));
+  const pendingTodayTasks = tasks.filter(
+    (t) => !t.completed && (t.dueDate === 'Hoje' || t.dueDate === 'Amanhã'),
+  );
   const countToday = pendingTodayTasks.length;
 
   return (
@@ -50,19 +52,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="mt-2 inline-flex items-center gap-3 bg-[#2563eb]/10 px-4 py-2.5 rounded-full w-fit border border-[#2563eb]/20">
             <TrendingUp className="w-5 h-5 text-[#004ac6]" />
             <span className="text-sm font-medium text-[#191c1e]">
-              Seu desempenho geral subiu{' '}
-              <span className="text-[#004ac6] font-bold">8%</span> este mês.
+              Seu desempenho geral subiu <span className="text-[#004ac6] font-bold">8%</span> este
+              mês.
             </span>
           </div>
         </div>
 
         {/* Primary CTA / Next Recommendation */}
-        <div 
+        <div
           id="recommended-study-card"
           className="bg-white border border-[#c3c6d7]/30 shadow-sm hover:shadow-md transition-all p-6 rounded-2xl w-full lg:w-96 flex flex-col gap-4 relative overflow-hidden group"
         >
           <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-[#2563eb]/10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500" />
-          
+
           <div className="flex items-center gap-3 relative z-10">
             <div className="w-10 h-10 rounded-xl bg-[#004ac6] text-white flex items-center justify-center shrink-0 shadow-sm">
               <BookOpen className="w-5 h-5" />
@@ -71,9 +73,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <p className="text-xs font-semibold text-[#737686] uppercase tracking-wider">
                 Próximo Estudo Recomendado
               </p>
-              <h2 className="text-xl font-bold text-[#191c1e]">
-                Revisão de Frações
-              </h2>
+              <h2 className="text-xl font-bold text-[#191c1e]">Revisão de Frações</h2>
             </div>
           </div>
 
@@ -98,9 +98,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold text-[#191c1e] tracking-tight">
-                Tarefas de Hoje
-              </h2>
+              <h2 className="text-2xl font-bold text-[#191c1e] tracking-tight">Tarefas de Hoje</h2>
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#eceef0] text-[#505f76]">
                 {pendingTodayTasks.length}
               </span>
@@ -143,9 +141,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                   {/* Task Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className={`text-sm sm:text-base font-semibold truncate transition-colors ${
-                      isDone ? 'line-through text-[#737686]' : 'text-[#191c1e] group-hover:text-[#004ac6]'
-                    }`}>
+                    <h3
+                      className={`text-sm sm:text-base font-semibold truncate transition-colors ${
+                        isDone
+                          ? 'line-through text-[#737686]'
+                          : 'text-[#191c1e] group-hover:text-[#004ac6]'
+                      }`}
+                    >
                       {task.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1 text-xs text-[#737686] truncate">
@@ -171,10 +173,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Upcoming Exam Alert */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-[#191c1e]">
-                Próxima Prova
-              </h2>
-              <button 
+              <h2 className="text-xl font-bold text-[#191c1e]">Próxima Prova</h2>
+              <button
                 onClick={() => onNavigate('calendario')}
                 className="text-xs font-semibold text-[#004ac6] hover:underline"
               >
@@ -182,7 +182,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </button>
             </div>
 
-            <div 
+            <div
               id="upcoming-exam-card"
               onClick={() => onNavigate('calendario')}
               className="bg-[#ffdad6]/60 border border-[#ba1a1a]/20 p-5 rounded-2xl flex items-start gap-4 shadow-xs hover:shadow-md transition-all cursor-pointer group"
@@ -210,10 +210,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Needs Attention */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-[#191c1e]">
-                Atenção Necessária
-              </h2>
-              <button 
+              <h2 className="text-xl font-bold text-[#191c1e]">Atenção Necessária</h2>
+              <button
                 onClick={() => onNavigate('materias')}
                 className="text-xs font-semibold text-[#004ac6] hover:underline"
               >
@@ -228,7 +226,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </p>
 
               {/* Topic 1: Frações */}
-              <div 
+              <div
                 className="cursor-pointer group"
                 onClick={() => onStartFocus('Frações', 'Matemática')}
               >
@@ -239,15 +237,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span className="text-xs font-bold text-[#ba1a1a]">54%</span>
                 </div>
                 <div className="h-2.5 w-full bg-[#eceef0] rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-[#bc4800] rounded-full transition-all duration-700" 
+                  <div
+                    className="h-full bg-[#bc4800] rounded-full transition-all duration-700"
                     style={{ width: '54%' }}
                   />
                 </div>
               </div>
 
               {/* Topic 2: Proporção */}
-              <div 
+              <div
                 className="cursor-pointer group"
                 onClick={() => onStartFocus('Razão e Proporção', 'Matemática')}
               >
@@ -258,8 +256,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span className="text-xs font-bold text-[#505f76]">63%</span>
                 </div>
                 <div className="h-2.5 w-full bg-[#eceef0] rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-[#505f76] rounded-full transition-all duration-700" 
+                  <div
+                    className="h-full bg-[#505f76] rounded-full transition-all duration-700"
                     style={{ width: '63%' }}
                   />
                 </div>

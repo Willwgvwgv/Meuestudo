@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  GraduationCap, 
-  Calendar as CalendarIcon, 
-  X, 
-  Play, 
-  ChevronLeft, 
-  ChevronRight, 
-  Plus, 
-  BookOpen, 
-  Clock, 
+import {
+  GraduationCap,
+  Calendar as CalendarIcon,
+  X,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  BookOpen,
+  Clock,
   AlertCircle,
-  FileCheck2
+  FileCheck2,
 } from 'lucide-react';
 import { CalendarEvent } from '../types';
 
@@ -20,14 +20,11 @@ interface CalendarViewProps {
   onAddEvent?: (event: Partial<CalendarEvent>) => void;
 }
 
-export const CalendarView: React.FC<CalendarViewProps> = ({
-  events,
-  onStartFocus,
-}) => {
+export const CalendarView: React.FC<CalendarViewProps> = ({ events, onStartFocus }) => {
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
   const [selectedDay, setSelectedDay] = useState<number>(10);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
-    events.find(e => e.dayNumber === 10) || events[0] || null
+    events.find((e) => e.dayNumber === 10) || events[0] || null,
   );
 
   // Calendar matrix for September 2026 (Starts on Tuesday = day 1)
@@ -73,7 +70,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const handleDayClick = (dayItem: { day: number; isCurrentMonth: boolean }) => {
     if (!dayItem.isCurrentMonth) return;
     setSelectedDay(dayItem.day);
-    const ev = events.find(e => e.dayNumber === dayItem.day);
+    const ev = events.find((e) => e.dayNumber === dayItem.day);
     if (ev) {
       setSelectedEvent(ev);
     } else {
@@ -109,7 +106,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         </div>
 
         {/* View Mode Switcher Pill */}
-        <div 
+        <div
           id="calendar-view-mode-tabs"
           className="flex items-center bg-[#e6e8ea] rounded-full p-1 shadow-inner self-start sm:self-auto"
         >
@@ -149,7 +146,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       {/* Main Content Area: Calendar Grid on Left, Event Detail Panel on Right */}
       <div className="flex flex-col lg:flex-row gap-6 relative items-start">
         {/* Calendar Grid Container */}
-        <div 
+        <div
           id="calendar-main-grid-container"
           className="flex-1 w-full bg-white rounded-3xl p-4 sm:p-6 shadow-xs border border-[#c3c6d7]/30 relative z-10"
         >
@@ -170,7 +167,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           {/* Days Grid */}
           <div className="grid grid-cols-7 gap-2 sm:gap-3">
             {calendarDays.map((item, idx) => {
-              const hasEvent = item.isCurrentMonth && events.find(e => e.dayNumber === item.day);
+              const hasEvent = item.isCurrentMonth && events.find((e) => e.dayNumber === item.day);
               const isSelected = item.isCurrentMonth && selectedDay === item.day;
               const isExamDay = item.isCurrentMonth && item.day === 10;
 
@@ -182,20 +179,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                     !item.isCurrentMonth
                       ? 'bg-[#f2f4f6]/40 text-[#737686]/40 opacity-40 cursor-default'
                       : isExamDay
-                      ? 'bg-[#004ac6] text-white shadow-md ring-4 ring-[#2563eb]/20 hover:bg-[#2563eb]'
-                      : isSelected
-                      ? 'bg-[#dbe1ff]/60 border-2 border-[#004ac6] text-[#004ac6]'
-                      : 'bg-white hover:bg-[#f2f4f6] text-[#191c1e] border border-[#eceef0] shadow-2xs'
+                        ? 'bg-[#004ac6] text-white shadow-md ring-4 ring-[#2563eb]/20 hover:bg-[#2563eb]'
+                        : isSelected
+                          ? 'bg-[#dbe1ff]/60 border-2 border-[#004ac6] text-[#004ac6]'
+                          : 'bg-white hover:bg-[#f2f4f6] text-[#191c1e] border border-[#eceef0] shadow-2xs'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`text-sm sm:text-base font-bold ${
-                      isExamDay 
-                        ? 'text-white' 
-                        : item.isWeekend 
-                        ? 'text-[#ba1a1a]' 
-                        : 'text-[#191c1e]'
-                    }`}>
+                    <span
+                      className={`text-sm sm:text-base font-bold ${
+                        isExamDay
+                          ? 'text-white'
+                          : item.isWeekend
+                            ? 'text-[#ba1a1a]'
+                            : 'text-[#191c1e]'
+                      }`}
+                    >
                       {item.day}
                     </span>
 
@@ -234,7 +233,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
         {/* Event Detail Side Card (Matches Screenshot 3 solid blue panel) */}
         {selectedEvent && (
-          <div 
+          <div
             id="event-detail-panel"
             className="w-full lg:w-[380px] xl:w-[410px] bg-[#004ac6] rounded-3xl p-7 sm:p-8 shadow-xl text-white flex flex-col shrink-0 relative overflow-hidden transition-all duration-300 animate-in fade-in zoom-in-95"
           >
@@ -250,7 +249,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                 </span>
               </div>
 
-              <button 
+              <button
                 onClick={() => setSelectedEvent(null)}
                 className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
                 aria-label="Fechar detalhes"
@@ -302,7 +301,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                 </span>
               </div>
               <div className="h-2 bg-white/20 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-[#dbe1ff] rounded-full transition-all duration-700"
                   style={{ width: `${selectedEvent.confidence}%` }}
                 />

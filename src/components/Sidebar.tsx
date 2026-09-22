@@ -1,18 +1,18 @@
 import React from 'react';
 import { TabType, StudentProfile } from '../types';
-import { 
-  Home, 
-  CheckSquare, 
-  Calendar as CalendarIcon, 
-  BookOpen, 
-  Edit3, 
-  Library, 
+import {
+  Home,
+  CheckSquare,
+  Calendar as CalendarIcon,
+  BookOpen,
+  Edit3,
+  Library,
   FileText,
-  TrendingUp, 
-  User, 
+  TrendingUp,
+  User,
   Palette,
   LogOut,
-  X
+  X,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -28,7 +28,8 @@ interface SidebarProps {
   onSignOut?: () => void;
 }
 
-export const LOGO_URL = "https://lh3.googleusercontent.com/aida-public/AB6AXuDA-8GdXJibg6kWaVUsYnr_tbMKQsC-9qCHiAfdVUMGEsd1rVmAhNHxFqXbbx467gihIOHcdj_2T42JUvZlr_MXTKyIqOPvuve4vfXQ4EpqYzBMQ2wH3PkwMTQIZoZjfpIcBO3N5FmU1Ud1msWIkTHBEtYf-JYdSM7uLe44cAzCPpwvU2Q_0KsdeDKZe3bgdSzTZxIRFl8cQMKd6xB__p7g6Y6iVnnUZkB2_vLJZlXs12-cogcDWJD70w";
+export const LOGO_URL =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuDA-8GdXJibg6kWaVUsYnr_tbMKQsC-9qCHiAfdVUMGEsd1rVmAhNHxFqXbbx467gihIOHcdj_2T42JUvZlr_MXTKyIqOPvuve4vfXQ4EpqYzBMQ2wH3PkwMTQIZoZjfpIcBO3N5FmU1Ud1msWIkTHBEtYf-JYdSM7uLe44cAzCPpwvU2Q_0KsdeDKZe3bgdSzTZxIRFl8cQMKd6xB__p7g6Y6iVnnUZkB2_vLJZlXs12-cogcDWJD70w';
 
 export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
@@ -50,7 +51,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navItems: { id: TabType; label: string; icon: React.ReactNode; badge?: number }[] = [
     { id: 'inicio', label: 'Início', icon: <Home className="w-5 h-5" /> },
-    { id: 'tarefas', label: 'Tarefas', icon: <CheckSquare className="w-5 h-5" />, badge: pendingTasksCount > 0 ? pendingTasksCount : undefined },
+    {
+      id: 'tarefas',
+      label: 'Tarefas',
+      icon: <CheckSquare className="w-5 h-5" />,
+      badge: pendingTasksCount > 0 ? pendingTasksCount : undefined,
+    },
     { id: 'caderno', label: 'Caderno', icon: <FileText className="w-5 h-5" /> },
     { id: 'calendario', label: 'Calendário', icon: <CalendarIcon className="w-5 h-5" /> },
     { id: 'materias', label: 'Matérias', icon: <BookOpen className="w-5 h-5" /> },
@@ -68,14 +74,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <>
       {/* Mobile backdrop */}
       {isOpen && (
-        <div 
+        <div
           id="sidebar-mobile-backdrop"
           className="fixed inset-0 bg-black/40 z-40 lg:hidden backdrop-blur-xs transition-opacity"
           onClick={handleClose}
         />
       )}
 
-      <aside 
+      <aside
         id="app-sidebar"
         className={`fixed top-0 left-0 h-full w-72 bg-[#f2f4f6] z-50 flex flex-col border-r border-[#c3c6d7]/30 transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
@@ -83,13 +89,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       >
         {/* Brand Header */}
         <div className="p-6 flex items-center justify-between">
-          <div 
+          <div
             className="flex items-center gap-3 cursor-pointer select-none"
             onClick={() => handleNavClick('inicio')}
           >
-            <img 
-              src={LOGO_URL} 
-              alt="Meu Estudo Logo" 
+            <img
+              src={LOGO_URL}
+              alt="Meu Estudo Logo"
               className="h-8 w-auto object-contain"
               referrerPolicy="no-referrer"
               onError={(e) => {
@@ -97,12 +103,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 (e.currentTarget as HTMLElement).style.display = 'none';
               }}
             />
-            <span className="font-bold text-2xl text-[#004ac6] tracking-tight">
-              Meu Estudo
-            </span>
+            <span className="font-bold text-2xl text-[#004ac6] tracking-tight">Meu Estudo</span>
           </div>
 
-          <button 
+          <button
             id="close-sidebar-btn"
             className="lg:hidden p-1.5 rounded-lg text-[#434655] hover:bg-[#e0e3e5] transition-colors"
             onClick={handleClose}
@@ -135,11 +139,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
 
                 {item.badge !== undefined && (
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                    isActive 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-[#2563eb]/10 text-[#004ac6]'
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-[#2563eb]/10 text-[#004ac6]'
+                    }`}
+                  >
                     {item.badge}
                   </span>
                 )}
@@ -167,7 +171,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
 
           <div className="flex items-center gap-2">
-            <div 
+            <div
               id="user-profile-card"
               className="flex items-center gap-3 bg-[#e0e3e5]/60 hover:bg-[#e0e3e5] p-3 rounded-xl transition-colors cursor-pointer group flex-1 overflow-hidden"
               onClick={() => handleNavClick('evolucao')}
@@ -183,7 +187,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {profile.studyContext || profile.grade || 'Estudos'}
                 </p>
               </div>
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white shrink-0" title="Conectado ao Supabase" />
+              <div
+                className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white shrink-0"
+                title="Conectado ao Supabase"
+              />
             </div>
 
             {onSignOut && (

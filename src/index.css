@@ -4,8 +4,8 @@
 /* ==========================================================================
    DESIGN TOKENS — tipografia e cores de estado. Os temas (src/utils/theme.ts)
    continuam sobrescrevendo --color-primary/bg/surface/etc. em runtime; os
-   tokens abaixo são fixos entre temas para manter o significado semântico,
-   com ajuste de contraste apenas no modo escuro via [data-theme-mode='dark'].
+   tokens abaixo são fixos entre todos os temas (inclusive os escuros) para
+   manter o significado semântico.
    Por estarem em @theme, geram utilitários do Tailwind (font-display,
    text-success, bg-warning-bg, border-error/30, ...).
    ========================================================================== */
@@ -40,16 +40,6 @@
   --shadow-card: 0 2px 6px rgba(16, 24, 40, 0.05), 0 8px 24px -12px rgba(16, 24, 40, 0.12);
   --shadow-elevated:
     0 8px 16px -6px rgba(16, 24, 40, 0.12), 0 20px 40px -16px rgba(16, 24, 40, 0.18);
-}
-
-/* Ajuste de contraste dos tokens de estado nos temas escuros */
-:root[data-theme-mode='dark'] {
-  --color-success: #34d399;
-  --color-success-bg: rgba(52, 211, 153, 0.16);
-  --color-warning: #fbbf24;
-  --color-warning-bg: rgba(251, 191, 36, 0.16);
-  --color-error: #f87171;
-  --color-error-bg: rgba(248, 113, 113, 0.16);
 }
 
 @layer base {

@@ -93,7 +93,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ items }) => {
           <div
             key={item.id}
             onClick={() => setPreviewItem(item)}
-            className="bg-white rounded-3xl p-6 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-[#c3c6d7]/30 flex flex-col justify-between cursor-pointer group"
+            className="bg-white rounded-2xl p-6 shadow-xs hover:shadow-sm hover:-translate-y-1 transition-all duration-300 border border-[#c3c6d7]/30 flex flex-col justify-between cursor-pointer group"
           >
             <div>
               <div className="flex items-center justify-between mb-4">

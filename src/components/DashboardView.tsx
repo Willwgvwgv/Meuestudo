@@ -220,7 +220,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             <div className="bg-white border border-[#c3c6d7]/30 p-6 rounded-2xl shadow-xs flex flex-col gap-5">
               <p className="text-xs text-[#737686] flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                <AlertTriangle className="w-3.5 h-3.5 text-warning" />
                 Tópicos com menor desempenho recente.
               </p>
 

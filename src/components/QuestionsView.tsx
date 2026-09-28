@@ -176,7 +176,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
 
       {showResults ? (
         /* Results View */
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-md border border-[#c3c6d7]/30 text-center flex flex-col items-center gap-6">
+        <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-[#c3c6d7]/30 text-center flex flex-col items-center gap-6">
           <div className="w-20 h-20 rounded-full bg-[#dbe1ff] text-[#004ac6] flex items-center justify-center shadow-inner animate-bounce">
             <Trophy className="w-10 h-10" />
           </div>
@@ -195,7 +195,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
               <span className="text-xs text-[#737686] uppercase font-bold block">
                 Taxa de Acerto
               </span>
-              <span className="text-2xl font-extrabold text-[#004ac6]">
+              <span className="font-display text-2xl font-extrabold text-[#004ac6]">
                 {Math.round((score / filteredQuestions.length) * 100)}%
               </span>
             </div>
@@ -204,7 +204,9 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
               <span className="text-xs text-[#737686] uppercase font-bold block">
                 Pontos Ganhos
               </span>
-              <span className="text-2xl font-extrabold text-amber-600">+{score * 15} XP</span>
+              <span className="font-display text-2xl font-extrabold text-amber-600">
+                +{score * 15} XP
+              </span>
             </div>
           </div>
 
@@ -218,7 +220,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
         </div>
       ) : currentQ ? (
         /* Active Question Card */
-        <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-6 relative">
+        <div className="bg-white rounded-2xl p-6 sm:p-10 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-6 relative">
           {/* Top metadata */}
           <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#eceef0]">
             <div className="flex items-center gap-2">
@@ -266,7 +268,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
               } else if (isSubmitted) {
                 if (isCorrect) {
                   optionStyle =
-                    'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-2 ring-emerald-500/20';
+                    'border-success bg-success-bg text-success font-bold ring-2 ring-success/20';
                 } else if (isWrongSelected) {
                   optionStyle =
                     'border-[#ba1a1a] bg-[#ffdad6]/40 text-[#93000a] ring-2 ring-[#ba1a1a]/20';
@@ -288,7 +290,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
                         isSelected && !isSubmitted
                           ? 'bg-[#004ac6] text-white'
                           : isSubmitted && isCorrect
-                            ? 'bg-emerald-600 text-white'
+                            ? 'bg-success text-white'
                             : isSubmitted && isWrongSelected
                               ? 'bg-[#ba1a1a] text-white'
                               : 'bg-[#eceef0] text-[#505f76]'
@@ -300,7 +302,7 @@ export const QuestionsView: React.FC<QuestionsViewProps> = ({
                   </div>
 
                   {isSubmitted && isCorrect && (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
                   )}
                   {isSubmitted && isWrongSelected && (
                     <XCircle className="w-5 h-5 text-[#ba1a1a] shrink-0" />

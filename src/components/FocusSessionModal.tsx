@@ -126,7 +126,7 @@ export const FocusSessionModal: React.FC<FocusSessionModalProps> = ({
         {sessionCompleted ? (
           /* Completion State */
           <div className="flex flex-col items-center gap-4 py-4 animate-in zoom-in-95">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner">
+            <div className="w-16 h-16 rounded-full bg-success-bg text-success flex items-center justify-center shadow-inner">
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <div>

@@ -219,7 +219,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </div>
 
               {savedSuccess && (
-                <div className="p-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+                <div className="p-3 bg-success-bg text-success rounded-xl text-xs font-bold flex items-center justify-center gap-2">
                   <Check className="w-4 h-4" /> Alterações salvas com sucesso!
                 </div>
               )}

@@ -134,8 +134,8 @@ export const GenerateQuestionsModal: React.FC<GenerateQuestionsModalProps> = ({
         {/* Body Form */}
         <form onSubmit={handleGenerate} className="p-6 flex flex-col gap-4">
           {errorMessage && (
-            <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs sm:text-sm text-red-700 flex items-start gap-2.5">
-              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-600" />
+            <div className="p-3.5 bg-error-bg border border-error/30 rounded-xl text-xs sm:text-sm text-error flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-error" />
               <span>{errorMessage}</span>
             </div>
           )}

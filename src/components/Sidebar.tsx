@@ -107,7 +107,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <BrandMark className="h-9 w-9 shrink-0 shadow-sm rounded-[10px]" />
             <div className="leading-tight">
-              <span className="font-extrabold text-xl text-[#191c1e] tracking-tight block">
+              <span className="font-display font-extrabold text-xl text-[#191c1e] tracking-tight block">
                 Meu Estudo
               </span>
               <span className="text-[11px] font-medium text-[#737686]">Plataforma de Estudos</span>
@@ -199,7 +199,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </p>
               </div>
               <div
-                className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white shrink-0"
+                className="w-2.5 h-2.5 rounded-full bg-success ring-2 ring-white shrink-0"
                 title="Conectado ao Supabase"
               />
             </div>

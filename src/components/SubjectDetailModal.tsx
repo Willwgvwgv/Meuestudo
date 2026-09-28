@@ -64,21 +64,25 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
             <span className="text-[11px] font-bold text-[#737686] uppercase block">
               Domínio Geral
             </span>
-            <span className="text-2xl font-extrabold text-[#004ac6]">
+            <span className="font-display text-2xl font-extrabold text-[#004ac6]">
               {subject.masteryPercentage}%
             </span>
           </div>
 
           <div className="p-3.5 bg-[#f7f9fb] rounded-2xl border border-[#eceef0]">
             <span className="text-[11px] font-bold text-[#737686] uppercase block">Conteúdos</span>
-            <span className="text-2xl font-extrabold text-[#191c1e]">{subject.contentsCount}</span>
+            <span className="font-display text-2xl font-extrabold text-[#191c1e]">
+              {subject.contentsCount}
+            </span>
           </div>
 
           <div className="p-3.5 bg-[#f7f9fb] rounded-2xl border border-[#eceef0]">
             <span className="text-[11px] font-bold text-[#737686] uppercase block">
               Questões Feitas
             </span>
-            <span className="text-2xl font-extrabold text-[#191c1e]">{subject.questionsCount}</span>
+            <span className="font-display text-2xl font-extrabold text-[#191c1e]">
+              {subject.questionsCount}
+            </span>
           </div>
         </div>
 
@@ -98,9 +102,9 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                   key={topic.id}
                   className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                     isDanger
-                      ? 'bg-[#ffdad6]/30 border-[#ba1a1a]/30'
+                      ? 'bg-error-bg/30 border-error/30'
                       : isAlert
-                        ? 'bg-amber-500/5 border-amber-500/20'
+                        ? 'bg-warning-bg/40 border-warning/20'
                         : 'bg-[#f7f9fb] border-[#eceef0]'
                   }`}
                 >
@@ -108,12 +112,12 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                     <div className="flex items-center gap-2">
                       <h4 className="text-sm font-bold text-[#191c1e]">{topic.name}</h4>
                       {isDanger && (
-                        <span className="px-2 py-0.5 bg-[#ba1a1a] text-white text-[10px] font-bold rounded-full">
+                        <span className="px-2 py-0.5 bg-error text-white text-[10px] font-bold rounded-full">
                           Crítico
                         </span>
                       )}
                       {isAlert && (
-                        <span className="px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded-full">
+                        <span className="px-2 py-0.5 bg-warning text-white text-[10px] font-bold rounded-full">
                           Atenção
                         </span>
                       )}
@@ -129,11 +133,7 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                       <div className="flex justify-between text-xs font-bold">
                         <span
                           className={
-                            isDanger
-                              ? 'text-[#ba1a1a]'
-                              : isAlert
-                                ? 'text-amber-800'
-                                : 'text-[#004ac6]'
+                            isDanger ? 'text-error' : isAlert ? 'text-warning' : 'text-[#004ac6]'
                           }
                         >
                           {topic.masteryPercentage}%
@@ -142,7 +142,7 @@ export const SubjectDetailModal: React.FC<SubjectDetailModalProps> = ({
                       <div className="h-2 w-full bg-[#eceef0] rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full ${
-                            isDanger ? 'bg-[#ba1a1a]' : isAlert ? 'bg-amber-600' : 'bg-[#004ac6]'
+                            isDanger ? 'bg-error' : isAlert ? 'bg-warning' : 'bg-[#004ac6]'
                           }`}
                           style={{ width: `${topic.masteryPercentage}%` }}
                         />

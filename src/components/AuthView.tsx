@@ -269,12 +269,12 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
           <div className="w-full max-w-md flex flex-col gap-6">
             {/* Quick Setup Drawer if Supabase keys not set */}
             {showConfigDrawer && (
-              <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-3">
+              <div className="bg-warning-bg border border-warning/30 rounded-2xl p-5 shadow-xs flex flex-col gap-3">
                 <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                  <AlertCircle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="text-sm font-bold text-amber-900">Credenciais do Supabase</h3>
-                    <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                    <h3 className="text-sm font-bold text-warning">Credenciais do Supabase</h3>
+                    <p className="text-xs text-warning/90 mt-1 leading-relaxed">
                       Você pode colar sua <strong>Project URL</strong> e <strong>anon key</strong>{' '}
                       abaixo para conectar imediatamente ou adicioná-las aos{' '}
                       <strong>Secrets</strong> do AI Studio (<code>SUPABASE_URL</code> e{' '}
@@ -293,7 +293,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
                       placeholder="https://xyzcompany.supabase.co"
                       value={inputUrl}
                       onChange={(e) => setInputUrl(e.target.value)}
-                      className="w-full px-3 py-2 text-xs bg-white border border-amber-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-[#004ac6] text-slate-900 font-mono"
+                      className="w-full px-3 py-2 text-xs bg-white border border-warning/40 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-[#004ac6] text-slate-900 font-mono"
                       required
                     />
                   </div>
@@ -306,7 +306,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
                       placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                       value={inputAnonKey}
                       onChange={(e) => setInputAnonKey(e.target.value)}
-                      className="w-full px-3 py-2 text-xs bg-white border border-amber-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-[#004ac6] text-slate-900 font-mono"
+                      className="w-full px-3 py-2 text-xs bg-white border border-warning/40 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-[#004ac6] text-slate-900 font-mono"
                       required
                     />
                   </div>
@@ -373,15 +373,15 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
 
               {/* Error & Info Alerts */}
               {errorMessage && (
-                <div className="bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm p-3.5 rounded-xl flex items-start gap-2.5">
-                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-600" />
+                <div className="bg-error-bg border border-error/30 text-error text-xs sm:text-sm p-3.5 rounded-xl flex items-start gap-2.5">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-error" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
               {infoMessage && (
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm p-3.5 rounded-xl flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+                <div className="bg-success-bg border border-success/30 text-success text-xs sm:text-sm p-3.5 rounded-xl flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-success" />
                   <span>{infoMessage}</span>
                 </div>
               )}
@@ -561,7 +561,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess, onAuthenticated }
 
             {/* Privacy & RLS reassurance footer (mobile only, hero panel already shows it on desktop) */}
             <div className="lg:hidden text-center text-xs text-slate-400 flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-success" />
               <span>Banco protegido por Row Level Security (RLS) no Supabase</span>
             </div>
           </div>

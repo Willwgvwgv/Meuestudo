@@ -147,7 +147,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
               key={sub.id}
               id={`subject-card-${sub.id}`}
               onClick={() => onSelectSubject(sub)}
-              className="flex flex-col bg-white rounded-3xl p-7 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group cursor-pointer border border-[#c3c6d7]/30"
+              className="flex flex-col bg-white rounded-2xl p-7 shadow-xs hover:shadow-sm hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group cursor-pointer border border-[#c3c6d7]/30"
             >
               {/* Subtle top corner ambient flare */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#004ac6]/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-125 duration-700 pointer-events-none" />
@@ -187,7 +187,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({
                     Domínio
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-extrabold text-[#191c1e]">
+                    <span className="font-display text-2xl font-extrabold text-[#191c1e]">
                       {sub.masteryPercentage}%
                     </span>
 

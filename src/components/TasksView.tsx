@@ -81,8 +81,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
               {pendingCount} tarefa{pendingCount !== 1 ? 's' : ''} pendente
               {pendingCount !== 1 ? 's' : ''}
             </span>{' '}
-            e já concluiu{' '}
-            <span className="font-semibold text-emerald-700">{completedTodayCount}</span>.
+            e já concluiu <span className="font-semibold text-success">{completedTodayCount}</span>.
           </p>
         </div>
 
@@ -347,7 +346,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
             <section className="opacity-80">
               <div className="flex items-center gap-3 mb-4">
                 <h2 className="text-lg font-bold text-[#737686]">Concluídas Hoje</h2>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-success-bg text-success">
                   {completedTasks.length}
                 </span>
               </div>
@@ -396,7 +395,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           {/* Card: Progresso Diário */}
           <div
             id="daily-progress-card"
-            className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 relative overflow-hidden"
+            className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 relative overflow-hidden"
           >
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#004ac6]/5 rounded-full blur-2xl pointer-events-none" />
 
@@ -428,7 +427,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className="text-3xl font-extrabold text-[#191c1e] tracking-tight">
+                <span className="font-display text-3xl font-extrabold text-[#191c1e] tracking-tight">
                   {completionPercent}%
                 </span>
                 <span className="text-[11px] font-semibold text-[#737686] uppercase">Hoje</span>
@@ -438,7 +437,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
             {/* Two Stat counters */}
             <div className="grid grid-cols-2 gap-4 text-center">
               <div className="p-3.5 bg-[#eceef0] rounded-2xl">
-                <span className="block text-2xl font-extrabold text-emerald-700">
+                <span className="font-display block text-2xl font-extrabold text-success">
                   {completedTodayCount}
                 </span>
                 <span className="block text-[11px] font-bold text-[#505f76] uppercase tracking-wider mt-1">
@@ -447,7 +446,9 @@ export const TasksView: React.FC<TasksViewProps> = ({
               </div>
 
               <div className="p-3.5 bg-[#eceef0] rounded-2xl">
-                <span className="block text-2xl font-extrabold text-[#004ac6]">{pendingCount}</span>
+                <span className="font-display block text-2xl font-extrabold text-[#004ac6]">
+                  {pendingCount}
+                </span>
                 <span className="block text-[11px] font-bold text-[#505f76] uppercase tracking-wider mt-1">
                   Restante{pendingCount !== 1 ? 's' : ''}
                 </span>
@@ -458,7 +459,7 @@ export const TasksView: React.FC<TasksViewProps> = ({
           {/* Card: Sequência de Foco */}
           <div
             id="focus-streak-card"
-            className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30"
+            className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30"
           >
             <div className="flex items-center gap-2 mb-4 text-[#505f76]">
               <Flame className="w-5 h-5 text-amber-600 fill-amber-500" />

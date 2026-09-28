@@ -38,7 +38,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
 
       {/* Top Metrics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase text-[#737686]">Média de Domínio</span>
             <div className="p-2 rounded-xl bg-[#dbe1ff] text-[#004ac6]">
@@ -46,16 +46,16 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#004ac6]">
+            <span className="font-display text-3xl font-extrabold text-[#004ac6]">
               {profile.generalAverage}%
             </span>
-            <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-1">
+            <span className="text-xs text-success font-bold flex items-center gap-1 mt-1">
               <ArrowUp className="w-3 h-3 stroke-[3]" /> +8% neste mês
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase text-[#737686]">Questões Feitas</span>
             <div className="p-2 rounded-xl bg-purple-100 text-purple-700">
@@ -63,7 +63,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#191c1e]">
+            <span className="font-display text-3xl font-extrabold text-[#191c1e]">
               {profile.questionsSolved.toLocaleString('pt-BR')}
             </span>
             <span className="text-xs text-[#737686] font-medium mt-1 block">
@@ -72,7 +72,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase text-[#737686]">Sequência de Foco</span>
             <div className="p-2 rounded-xl bg-amber-100 text-amber-700">
@@ -80,14 +80,14 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-extrabold text-amber-600">
+            <span className="font-display text-3xl font-extrabold text-amber-600">
               {profile.streakDays} Dias
             </span>
             <span className="text-xs text-[#737686] font-medium mt-1 block">Recorde: 12 dias</span>
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase text-[#737686]">Tempo de Estudo</span>
             <div className="p-2 rounded-xl bg-emerald-100 text-emerald-700">
@@ -95,7 +95,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#191c1e]">18h 45m</span>
+            <span className="font-display text-3xl font-extrabold text-[#191c1e]">18h 45m</span>
             <span className="text-xs text-[#737686] font-medium mt-1 block">Média de 2h30/dia</span>
           </div>
         </div>
@@ -104,7 +104,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
       {/* Main Charts Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Mastery by Discipline */}
-        <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-6">
+        <div className="lg:col-span-8 bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-[#191c1e]">Domínio por Disciplina</h2>
             <span className="text-xs font-semibold text-[#737686]">Meta Geral: 85%</span>
@@ -151,7 +151,7 @@ export const EvolutionView: React.FC<EvolutionViewProps> = ({
 
         {/* Right: Recommendations & Weak points */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <div className="bg-white rounded-3xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-4">
+          <div className="bg-white rounded-2xl p-6 shadow-xs border border-[#c3c6d7]/30 flex flex-col gap-4">
             <div className="flex items-center gap-2 text-[#ba1a1a]">
               <AlertTriangle className="w-5 h-5" />
               <h3 className="text-sm font-bold uppercase tracking-wider">
